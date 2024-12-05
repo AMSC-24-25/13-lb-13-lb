@@ -13,8 +13,8 @@
 template<int dim>
 class Domain {
 private:
-    const std::unordered_map<const Point<dim>&, const Node<dim>&> _kPointToNode;
     const MetricNeighbour _kNeighboursStartegy;
+    const std::unordered_map<const Point<dim>&, const Node<dim>&> _kPointToNode;
 
 public:
     Domain(const std::string&) = 0;
