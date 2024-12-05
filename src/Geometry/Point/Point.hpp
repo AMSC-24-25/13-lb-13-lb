@@ -21,11 +21,11 @@ public:
     Point(const std::vector<T>&);
     Point(const Point<T, dim>&, const std::array<T, dim>&);     // possible hashmap, but there is an underlying array of zeros anyway
 
-    T GetCoordinate(int);
+    T GetCoordinate(int) const;
 
-    size_t GetHash();
+    size_t GetHash() const;
 
-    bool operator==(const Point<T, dim>&);
+    bool operator==(const Point<T, dim>&) const;
 };
 
 

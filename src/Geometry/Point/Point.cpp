@@ -36,7 +36,7 @@ Point<T, dim>::Point(const Point<T, dim>& point, const std::array<T, dim>& varia
 } 
 
 template<typename T, int dim>
-T Point<T, dim>::GetCoordinate(int x) {
+T Point<T, dim>::GetCoordinate(int x) const {
     if(x <= -1 || x >= dim)
         throw std::invalid_argument("Point: Requested coordinate out-of-bounds");
 
@@ -44,7 +44,7 @@ T Point<T, dim>::GetCoordinate(int x) {
 }
 
 template<typename T, int dim>
-bool Point<T, dim>::operator==(const Point<T, dim>& a) {
+bool Point<T, dim>::operator==(const Point<T, dim>& a) const {
     for(int i = 0;i < dim;i++) {
         if(this->_coordinates[i] != a._coordinates[i])
             return false;
@@ -54,7 +54,7 @@ bool Point<T, dim>::operator==(const Point<T, dim>& a) {
 }
 
 template<typename T, int dim>
-inline size_t Point<T, dim>::GetHash() {
+inline size_t Point<T, dim>::GetHash() const {
     return this->_hash;
 }
 
