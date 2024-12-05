@@ -10,25 +10,27 @@ namespace lattice_boltzmann_method
     //Abstract class for streaming output
     class History /*: public Observer*/{
 
-        private:
+        protected:
             std::string file_name_;
             
         public:
+            History(const std::string &/*filename*/);
             virtual ~History() = default;
-            virtual void addStep(Step &/*step*/)=0;
+            virtual void addStep(const Step &/*step*/)=0;
     };
 
-    //Derived class for writing vectors in .csv file
+    //Derived class for writing data vectors rowswise in .csv file
     class CSVWriter : public History {
 
-        private:
+        protected:
             std::ofstream file_;
             bool header_written_;
 
         public:
             CSVWriter(const std::string &/*filename*/);
             ~CSVWriter();
-            void addStep(Step &/*step*/);
+            void addStep(const Step &/*step*/) override;
+            // Writes the header (column names), to be used before adding steps
             void WriteHeader(const std::vector<std::string> &/*headers*/);
     };
 
