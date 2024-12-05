@@ -1,9 +1,9 @@
 #ifndef LBM_Metric
 #define LBM_Metric
 
-#include "../Point/Point.hpp"
-#include "../Domain/Domain.hpp"
-#include "../Node/Node.hpp"
+#include "../Point/point.hpp"
+#include "../Domain/domain.hpp"
+#include "../Node/node.hpp"
 
 #include <vector>
 #include <array>

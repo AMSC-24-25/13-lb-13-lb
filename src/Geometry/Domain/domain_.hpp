@@ -1,9 +1,9 @@
 #ifndef LBM_Domain
 #define LBM_Domain
 
-#include "../Point/Point.hpp"
-#include "../Node/Node.hpp"
-#include "MetricNeighbour.hpp"
+#include "../Point/point.hpp"
+#include "../Node/node.hpp"
+#include "metric_neighbour.hpp"
 
 #include <string>
 #include <vector>

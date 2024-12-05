@@ -1,7 +1,7 @@
 #ifndef LBM_Linf
 #define LBM_Linf
 
-#include "MetricNeighbour.hpp"
+#include "metric_neighbour.hpp"
 
 // Chebychev metric, computes neighbours also on diagonals
 template<int dim>

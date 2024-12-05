@@ -1,4 +1,4 @@
-#include "Point.hpp"
+#include "point.hpp"
 
 template<typename T, int dim>
 Point<T, dim>::Point(std::initializer_list<T> pars) {

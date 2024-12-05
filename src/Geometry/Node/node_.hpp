@@ -1,7 +1,7 @@
 #ifndef LBM_Node
 #define LBM_Node
 
-#include "../Point/Point.hpp"
+#include "../Point/point.hpp"
 
 template<int dim>
 class Node {

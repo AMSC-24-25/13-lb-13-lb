@@ -1,4 +1,4 @@
-#include "Domain.hpp"
+#include "domain.hpp"
 
 
 template<int dim>

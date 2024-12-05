@@ -1,7 +1,7 @@
 #ifndef LBM_L1
 #define LBM_L1
 
-#include "MetricNeighbour.hpp"
+#include "metric_neighbour.hpp"
 
 // Manhattan metric, computes neighbours only on lateral movements
 template<int dim>

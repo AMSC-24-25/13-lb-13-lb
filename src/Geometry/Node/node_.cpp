@@ -1,4 +1,4 @@
-#include "Node.hpp"
+#include "node.hpp"
 
 template<int dim>
 Node<dim>::Node(const Point<double, dim>& position) {
