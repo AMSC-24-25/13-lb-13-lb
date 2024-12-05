@@ -2,6 +2,7 @@
 #define LBM_Point
 
 #include <array>
+#include <vector>
 #include <initializer_list>
 #include <stdexcept>
 #include <functional>
@@ -12,15 +13,15 @@ class Point {
 private:
     static_assert(dim > 0, "Point: dimensions have to be greater than 0");
 
-    std::array<T, dim> coordinates;
-    size_t hash;
+    std::array<T, dim> _coordinates;
+    size_t _hash;
 
 public:
-    Point(std::initializer_list<double>);
-    Point(const Point<T, dim>& other) : coordinates(other.coordinates), hash(other.hash) = 0;
+    Point(std::initializer_list<T>);
+    Point(const std::vector<T>&);
+    Point(const Point<T, dim>&, const std::array<T, dim>&);     // possible hashmap, but there is an underlying array of zeros anyway
 
     T GetCoordinate(int);
-    void SetCoordinate(int, T);
 
     size_t GetHash();
 
