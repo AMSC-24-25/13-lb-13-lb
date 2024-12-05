@@ -9,12 +9,16 @@ private:
     const Point<double, dim> _position;
 
 public:
-    Node<dim>(const Point<double, dim>& position) : _position(position) = 0;
+    Node<dim>(const Point<double, dim>&);
 
     virtual void Collide() = 0;
     virtual void Propagate() = 0;
 
     Point<double, dim> GetPosition();
 };
+
+// template instances
+template class Node<2>;
+template class Node<3>;
 
 #endif
