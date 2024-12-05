@@ -1,7 +1,7 @@
 #include "Point.hpp"
 
-template<int dim>
-Point<dim>::Point(std::initializer_list<double> pars) {
+template<typename T, int dim>
+Point<T, dim>::Point(std::initializer_list<double> pars) {
     if(pars.size() != dim)
         throw std::invalid_argument("Point: Number of coordinates doesn't coincide with dimensions");
 
@@ -14,24 +14,24 @@ Point<dim>::Point(std::initializer_list<double> pars) {
     }
 }
 
-template<int dim>
-double Point<dim>::GetCoordinate(int x) {
+template<typename T, int dim>
+T Point<T, dim>::GetCoordinate(int x) {
     if(x <= -1 || x >= dim)
         throw std::invalid_argument("Point: Requested coordinate out-of-bounds");
 
     return this.coordinates[x];
 }
 
-template<int dim>
-void Point<dim>::SetCoordinate(int x, double val) {
+template<typename T, int dim>
+void Point<T, dim>::SetCoordinate(int x, T val) {
     if(x <= -1 || x >= dim)
         throw std::invalid_argument("Point: Requested coordinate out-of-bounds");
 
     this.coordinates[x] = val;
 }
 
-template<int dim>
-bool Point<dim>::operator==(const Point<dim>& a) {
+template<typename T, int dim>
+bool Point<T, dim>::operator==(const Point<T, dim>& a) {
     for(int i = 0;i < dim;i++) {
         if(this.get(i) != a.get(i))
             return false;
@@ -40,14 +40,14 @@ bool Point<dim>::operator==(const Point<dim>& a) {
     return true;
 }
 
-template<int dim>
-size_t Point<dim>::GetHash() {
+template<typename T, int dim>
+size_t Point<T, dim>::GetHash() {
     return this.hash;
 }
 
 namespace std {
-    template <int dim>
-    struct hash<Point<dim>> {
+    template <typename T, int dim>
+    struct hash<Point<T, dim>> {
         size_t operator()(const Point<dim>& point) const {
             return point.GetHash();
         }
