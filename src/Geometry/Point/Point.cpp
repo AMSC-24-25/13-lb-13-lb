@@ -19,7 +19,7 @@ Point<T, dim>::Point(const std::vector<T>& v) {
     for(int i = 0;i < dim;i++) {
         this->_coordinates[i] = v[i];
         
-        this->_hash ^= std::hash<T>()(n) + 0x9e3779b9 + (this->_hash << 6) + (this->_hash >> 2);
+        this->_hash ^= std::hash<T>()(v[i]) + 0x9e3779b9 + (this->_hash << 6) + (this->_hash >> 2);
         i++;
     }
 }
@@ -40,7 +40,7 @@ T Point<T, dim>::GetCoordinate(int x) {
     if(x <= -1 || x >= dim)
         throw std::invalid_argument("Point: Requested coordinate out-of-bounds");
 
-    return this.coordinates[x];
+    return this->_coordinates[x];
 }
 
 template<typename T, int dim>
@@ -61,7 +61,7 @@ inline size_t Point<T, dim>::GetHash() {
 namespace std {
     template <typename T, int dim>
     struct hash<Point<T, dim>> {
-        size_t operator()(const Point<dim>& point) const {
+        size_t operator()(const Point<T, dim>& point) const {
             return point->GetHash();
         }
     };

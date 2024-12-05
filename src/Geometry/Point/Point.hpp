@@ -28,4 +28,11 @@ public:
     bool operator==(const Point<T, dim>&);
 };
 
+
+// template instances
+template class Point<int, 2>;
+template class Point<int, 3>;
+template class Point<double, 2>;
+template class Point<double, 3>;
+
 #endif
