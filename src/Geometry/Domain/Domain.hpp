@@ -18,8 +18,8 @@ private:
 public:
     Domain(const std::string&);
 
-    Node<dim> GetNodeFromCoordinates(const Point<int, dim>&);
-    std::vector<Node<dim>> GetNeighbours(const Point<int, dim>&);
+    Node<dim> GetNodeFromCoordinates(const Point<int, dim>&) const;
+    std::vector<Node<dim>> GetNeighbours(const Point<int, dim>&) const;
 };
 
 #endif
