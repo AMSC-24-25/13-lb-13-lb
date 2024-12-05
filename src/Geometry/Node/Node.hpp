@@ -14,7 +14,7 @@ public:
     virtual void Collide() = 0;
     virtual void Propagate() = 0;
 
-    auto GetPosition();
+    Point<double, dim> GetPosition();
 };
 
 #endif
