@@ -54,7 +54,7 @@ bool Point<T, dim>::operator==(const Point<T, dim>& a) {
 }
 
 template<typename T, int dim>
-size_t Point<T, dim>::GetHash() {
+inline size_t Point<T, dim>::GetHash() {
     return this->_hash;
 }
 
