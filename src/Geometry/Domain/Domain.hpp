@@ -12,8 +12,8 @@
 template<int dim>
 class Domain {
 private:
-    const MetricNeighbour<dim> _kNeighboursStrategy;
-    const std::unordered_map<Point<int, dim>, Node<dim>> _kPointToNode;
+    const MetricNeighbour<dim> _k_neighbours_strategy;
+    const std::unordered_map<Point<int, dim>, Node<dim>> _k_point_to_node;
 
 public:
     Domain(const std::string&);
