@@ -4,7 +4,6 @@
 #include "../Point/Point.hpp"
 #include "../Node/Node.hpp"
 #include "MetricNeighbour.hpp"
-#include "MetricManhattan.hpp"
 
 #include <string>
 #include <vector>
@@ -13,11 +12,11 @@
 template<int dim>
 class Domain {
 private:
-    const MetricNeighbour _kNeighboursStartegy;
-    const std::unordered_map<const Point<dim>&, const Node<dim>&> _kPointToNode;
+    const MetricNeighbour<dim> _kNeighboursStrategy;
+    const std::unordered_map<Point<int, dim>, Node<dim>> _kPointToNode;
 
 public:
-    Domain(const std::string&) = 0;
+    Domain(const std::string&);
 
     Node<dim> GetNodeFromCoordinates(const Point<int, dim>&);
     std::vector<Node<dim>> GetNeighbours(const Point<int, dim>&);
