@@ -6,7 +6,7 @@ Node<dim>::Node(const Point<double, dim>& position) {
 }
 
 template <int dim>
-inline Point<double, dim> Node<dim>::GetPosition()
+inline Point<double, dim> Node<dim>::GetPosition() const
 {
     return this->_position;
 }
