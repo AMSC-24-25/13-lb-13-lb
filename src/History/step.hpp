@@ -27,7 +27,7 @@ namespace lattice_boltzmann_method
             void print() const override;
             size_t size() const override;
             void add(double value);
-            const std::vector<double>& get() const;
+            std::vector<double> get() const;
             void set(const std::vector<double>& /*input_data*/);
     };
 
@@ -43,7 +43,7 @@ namespace lattice_boltzmann_method
             void print() const override;
             size_t size() const override;
             void addRow(const std::vector<double>& /*row*/);
-            const std::vector<std::vector<double>>& get() const;
+            std::vector<std::vector<double>> get() const;
             void set(const std::vector<std::vector<double>>& /*input_data*/);
 };
 
