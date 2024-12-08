@@ -27,9 +27,9 @@ namespace lattice_boltzmann_method
         data_.push_back(value);
     }
 
-    std::vector<double> VectorStep::Get() const
+    const void * VectorStep::Get() const
     {
-        return data_;
+        return &data_;
     }
 
     void VectorStep::Set(const std::vector<double>& input_data)
@@ -64,9 +64,9 @@ namespace lattice_boltzmann_method
         data_.push_back(row);
     }
 
-    std::vector<std::vector<double>> MatrixStep::Get() const
+    const void * MatrixStep::Get() const
     {
-        return data_;
+        return &data_;
     }
 
     void MatrixStep::Set(const std::vector<std::vector<double>>& input_data)

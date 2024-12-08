@@ -5,6 +5,9 @@
 #include <string>
 #include "step.hpp"
 #include "../Core/simulation_observer.hpp"
+#include <algorithm>
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "../include/stb_image_write.h"
 
 namespace lattice_boltzmann_method
 {
@@ -34,6 +37,21 @@ namespace lattice_boltzmann_method
             void AddStep(const Step &/*step*/) override;
             // Writes the header (column names), to be used before adding steps
             void WriteHeader(const std::vector<std::string> &/*headers*/);
+    };
+
+    //Derived class for writing series of .png images
+    class ImageStreamWriter : public History {
+
+        protected:
+            unsigned counter_;
+            double minimum_value_;
+            double maximum_value_;
+            struct Color {int r, g, b;};
+            Color InterpolateColor(double /*value*/);
+
+        public:
+            void AddStep(const Step &/*step*/) override;
+            ImageStreamWriter(const std::string &/*filename*/, double /*minimum_value_*/, double /*maximum_value_*/);
     };
 
 }

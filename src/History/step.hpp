@@ -13,6 +13,7 @@ namespace lattice_boltzmann_method
             virtual ~Step() = default;
             virtual void Print() const = 0;
             virtual size_t Size() const = 0;
+            virtual const void * Get() const=0;
     };
 
     //Derived class for row vector data
@@ -27,7 +28,7 @@ namespace lattice_boltzmann_method
             void Print() const override;
             size_t Size() const override;
             void Add(double value);
-            std::vector<double> Get() const;
+            const void * Get() const override;
             void Set(const std::vector<double>& /*input_data*/);
     };
 
@@ -43,7 +44,7 @@ namespace lattice_boltzmann_method
             void Print() const override;
             size_t Size() const override;
             void AddRow(const std::vector<double>& /*row*/);
-            std::vector<std::vector<double>> Get() const;
+            const void * Get() const override;
             void Set(const std::vector<std::vector<double>>& /*input_data*/);
 };
 
