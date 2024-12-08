@@ -9,10 +9,10 @@ namespace lattice_boltzmann_method
     //Implementation of CSVWriter
     CSVWriter::CSVWriter(const std::string &filename) : History(filename), header_written_(false)
     {
-        file_.open(filename);
+        file_.open(filename + ".csv");
         if (!file_.is_open())
         {
-            throw std::ios_base::failure("Unable to open " + file_name_ + " file");
+            throw std::ios_base::failure("Unable to open " + file_name_ + ".csv file");
         }
     }
 
@@ -21,7 +21,7 @@ namespace lattice_boltzmann_method
         if (file_.is_open())
         {
             file_.close();
-            std::cout << file_name_ << " file written successfully." << std::endl;
+            std::cout << file_name_ << ".csv file written successfully." << std::endl;
         }
     }
 
@@ -29,7 +29,7 @@ namespace lattice_boltzmann_method
     {
         if (header_written_)
         {
-            throw std::logic_error("Header already written in " + file_name_ + " file");
+            throw std::logic_error("Header already written in " + file_name_ + ".csv file");
         }
         for (size_t i = 0; i < headers.size(); ++i)
         {
@@ -43,7 +43,7 @@ namespace lattice_boltzmann_method
     {
         if (!header_written_)
         {
-            throw std::logic_error("Header must be written before adding rows in " + file_name_ + " file");
+            throw std::logic_error("Header must be written before adding rows in " + file_name_ + ".csv file");
         }
         std::streambuf *coutbuf = std::cout.rdbuf();
         std::cout.rdbuf(file_.rdbuf());
