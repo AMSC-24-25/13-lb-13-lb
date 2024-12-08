@@ -39,7 +39,7 @@ namespace lattice_boltzmann_method
         header_written_ = true;
     }
 
-    void CSVWriter::addStep(const Step &step)
+    void CSVWriter::AddStep(const Step &step)
     {
         if (!header_written_)
         {
@@ -47,7 +47,7 @@ namespace lattice_boltzmann_method
         }
         std::streambuf *coutbuf = std::cout.rdbuf();
         std::cout.rdbuf(file_.rdbuf());
-        step.print();
+        step.Print();
         std::cout.rdbuf(coutbuf);
     }
 }

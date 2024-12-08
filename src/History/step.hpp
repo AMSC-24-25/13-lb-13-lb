@@ -11,8 +11,8 @@ namespace lattice_boltzmann_method
 
         public:
             virtual ~Step() = default;
-            virtual void print() const = 0;
-            virtual size_t size() const = 0;
+            virtual void Print() const = 0;
+            virtual size_t Size() const = 0;
     };
 
     //Derived class for row vector data
@@ -24,11 +24,11 @@ namespace lattice_boltzmann_method
         public:
             VectorStep();
             VectorStep(const std::vector<double>& /*input_data*/);
-            void print() const override;
-            size_t size() const override;
-            void add(double value);
-            std::vector<double> get() const;
-            void set(const std::vector<double>& /*input_data*/);
+            void Print() const override;
+            size_t Size() const override;
+            void Add(double value);
+            std::vector<double> Get() const;
+            void Set(const std::vector<double>& /*input_data*/);
     };
 
     // Derived class for multiple rows data
@@ -40,11 +40,11 @@ namespace lattice_boltzmann_method
         public:
             MatrixStep();
             MatrixStep(const std::vector<std::vector<double>>& /*input_data*/);
-            void print() const override;
-            size_t size() const override;
-            void addRow(const std::vector<double>& /*row*/);
-            std::vector<std::vector<double>> get() const;
-            void set(const std::vector<std::vector<double>>& /*input_data*/);
+            void Print() const override;
+            size_t Size() const override;
+            void AddRow(const std::vector<double>& /*row*/);
+            std::vector<std::vector<double>> Get() const;
+            void Set(const std::vector<std::vector<double>>& /*input_data*/);
 };
 
 }
