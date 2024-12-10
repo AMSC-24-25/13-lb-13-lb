@@ -19,6 +19,10 @@ set(SOURCES
 
     # Geometry
 	${CMAKE_CURRENT_LIST_DIR}/../src/Geometry/Domain/domain.cpp
+	${CMAKE_CURRENT_LIST_DIR}/../src/Geometry/Domain/subdomain.cpp
+	${CMAKE_CURRENT_LIST_DIR}/../src/Geometry/Domain/metric_manhattan.cpp
+	${CMAKE_CURRENT_LIST_DIR}/../src/Geometry/Domain/metric_chebychev.cpp
+	${CMAKE_CURRENT_LIST_DIR}/../src/Geometry/Point/point.cpp
 	${CMAKE_CURRENT_LIST_DIR}/../src/Geometry/Node/node.cpp
 	${CMAKE_CURRENT_LIST_DIR}/../src/Geometry/Node/boundary_node.cpp
 	${CMAKE_CURRENT_LIST_DIR}/../src/Geometry/Node/inner_node.cpp
@@ -38,9 +42,12 @@ set(HEADERS
 
     # Geometry
 	${CMAKE_CURRENT_LIST_DIR}/../src/Geometry/Domain/domain.hpp
+	${CMAKE_CURRENT_LIST_DIR}/../src/Geometry/Domain/subdomain.hpp
+	${CMAKE_CURRENT_LIST_DIR}/../src/Geometry/Domain/metric_neighbour.hpp
 	${CMAKE_CURRENT_LIST_DIR}/../src/Geometry/Node/node.hpp
 	${CMAKE_CURRENT_LIST_DIR}/../src/Geometry/Node/boundary_node.hpp
 	${CMAKE_CURRENT_LIST_DIR}/../src/Geometry/Node/inner_node.hpp
+	${CMAKE_CURRENT_LIST_DIR}/../src/Geometry/Point/point.hpp
 
     # History
 	${CMAKE_CURRENT_LIST_DIR}/../src/History/history.hpp
