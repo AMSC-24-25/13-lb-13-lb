@@ -17,9 +17,10 @@ private:
     size_t _hash;
 
 public:
+    Point() {}
     Point(std::initializer_list<T>);
     Point(const std::vector<T>&);
-    Point(const Point<T, dim>&, const std::array<T, dim>&);     // possible hashmap, but there is an underlying array of zeros anyway
+    Point(const Point<T, dim>&, const std::array<T, dim>&);     // possible hashmap, but there would be an underlying array of zeros anyway
 
     T GetCoordinate(int) const;
 
