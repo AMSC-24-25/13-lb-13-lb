@@ -10,10 +10,9 @@ std::vector<Node<dim>> MetricChebychev<dim>::GetNeighbours(const Domain<dim>& do
 
     for (int i = 0; i < (1 << (2 * dim)); ++i) {
         bool is_original = true;
-        
+        std::array<int, dim> var;
         for (int j = 0; j < dim; ++j) {
             int change = (i >> (2 * j)) & 3;
-            std::array<int, dim> var;
 
             if (change == 1) {
                 var[j] += 1;
