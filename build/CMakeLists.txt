@@ -31,6 +31,8 @@ set(SOURCES
 	${CMAKE_CURRENT_LIST_DIR}/../src/History/history.cpp
 	${CMAKE_CURRENT_LIST_DIR}/../src/History/step.cpp
 
+	# Debug
+	${CMAKE_CURRENT_LIST_DIR}/../src/Debug/compiler_debug.cpp
 )
 
 set(HEADERS
@@ -52,6 +54,10 @@ set(HEADERS
     # History
 	${CMAKE_CURRENT_LIST_DIR}/../src/History/history.hpp
 	${CMAKE_CURRENT_LIST_DIR}/../src/History/step.hpp
+
+	# Debug
+	${CMAKE_CURRENT_LIST_DIR}/../src/Debug/compiler_debug.hpp
+
 )
 
 add_executable(main ${SOURCES} ${HEADERS})
