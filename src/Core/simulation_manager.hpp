@@ -20,10 +20,11 @@ namespace lattice_boltzmann_method
             2. by passing a LatticeBoltzmannParameter object when constructing the object
             3. by passing through command line a path to a .json file through the option `-parameters`
     */
+    template<int dim>
     class SimulationManager 
     {
         public:
-            SimulationManager(int argc, char *argv[], std::unique_ptr<StepSimulationStrategy> step_strategy=nullptr) : step_strategy_{std::move(step_strategy)} {
+            SimulationManager(int argc, char *argv[], std::unique_ptr<StepSimulationStrategy<dim>> step_strategy=nullptr) : step_strategy_{std::move(step_strategy)} {
                 /* Parsing arguments from cli*/
                 // ...
             }
@@ -31,12 +32,14 @@ namespace lattice_boltzmann_method
             void Start();
 
         protected:
-            std::unique_ptr<StepSimulationStrategy> step_strategy_;
+            std::unique_ptr<StepSimulationStrategy<dim>> step_strategy_;
 
             virtual void LoadDomain();
             virtual void SetupDomain();
     };
 
 }
+
+#include "simulation_manager.cpp"
 
 #endif

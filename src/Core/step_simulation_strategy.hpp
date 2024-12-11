@@ -4,6 +4,8 @@
 #include <memory>
 #include <vector>
 
+#include "../Geometry/Domain/domain.hpp"
+#include "../Geometry/Domain/subdomain.hpp"
 #include "node_callback.hpp"
 #include "simulation_observer.hpp"
 
@@ -31,9 +33,10 @@ namespace lattice_boltzmann_method
 
         A concrete implementation of this class might be parallel.
     */
+    template<int dim>
     class StepSimulationStrategy : public SimulationObservable {
         public:
-            StepSimulationStrategy(/*Domain &domain, */std::unique_ptr<NodeCallback> node_callback=nullptr) {
+            StepSimulationStrategy(Domain<dim> &domain, std::unique_ptr<NodeCallback> node_callback=nullptr) : domain_{domain} {
                 node_callbacks_.push_back(std::move(node_callback));
             }
             StepSimulationStrategy(std::vector<std::unique_ptr<NodeCallback>> node_callbacks) {
@@ -50,7 +53,12 @@ namespace lattice_boltzmann_method
                     node_callbacks_.push_back(std::move(node_callback));
                 }
             }
-            //Domain domain_;
+
+            /*
+                @brief setups the objects needed for the simulation.
+                Setup is not performed in the constructor, such that it is very light weigth.
+            */
+            virtual void Setup() = 0;
 
             /*
                 @brief calculates the next step of the simulation, which means it advances by a certain deltaT in the simulation
@@ -65,16 +73,22 @@ namespace lattice_boltzmann_method
             virtual void SimulateUntil(double time)=0;
         protected:
             std::vector<std::unique_ptr<NodeCallback>> node_callbacks_;
-        private:
+            Domain<dim> &domain_;
     };
 
-    class SerialStepSimulationStrategy : public StepSimulationStrategy {
+    template<int dim>
+    class SerialStepSimulationStrategy : public StepSimulationStrategy<dim> {
         public:
-            SerialStepSimulationStrategy(std::unique_ptr<NodeCallback> node_callback) : StepSimulationStrategy{std::move(node_callback)} {}
+            SerialStepSimulationStrategy(Domain<dim> &domain, std::unique_ptr<NodeCallback> node_callback) : StepSimulationStrategy<dim>{domain, std::move(node_callback)} {}
+            virtual void Setup() override;
             virtual void SimulateNextStep() override;
             virtual void SimulateUntil(double time) override;
+
         private:
+            Subdomain<dim> subdomain;
     };
 }
 
-#endif
+#include "step_simulation_strategy.cpp"
+
+#endif // STEP_SIMULATION_STRATEGY_HPP

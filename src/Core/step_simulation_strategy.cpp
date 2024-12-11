@@ -1,8 +1,17 @@
+#ifndef STEP_SIMULATION_STRATEGY_CPP
+#define STEP_SIMULATION_STRATEGY_CPP
+
 #include "step_simulation_strategy.hpp"
 
 namespace lattice_boltzmann_method 
 {
-    void SerialStepSimulationStrategy::SimulateNextStep() {
+    template <int dim>
+    void SerialStepSimulationStrategy<dim>::Setup() {
+        
+    }
+
+    template <int dim>
+    void SerialStepSimulationStrategy<dim>::SimulateNextStep() {
         /*
         for ( Node &node : domain_ ) {
             node.Collide();
@@ -11,7 +20,9 @@ namespace lattice_boltzmann_method
         }
         */
     }
-    void SerialStepSimulationStrategy::SimulateUntil(double time) {
+    template<int dim>
+    void SerialStepSimulationStrategy<dim>::SimulateUntil(double time) {
         
     }
 }
+#endif
