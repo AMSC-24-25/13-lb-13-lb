@@ -37,12 +37,12 @@ void Domain<dim>::LoadFromFile(const std::string& path) {
 }
 
 template<int dim>
-void Domain<dim>::Partition(int partitions) const {
+void Domain<dim>::Partition(int partitions) {
 
 }
 
 template<int dim>
-void Domain<dim>::Partition(const std::vector<int>& indexes) const {
+void Domain<dim>::Partition(const std::vector<int>& indexes) {
 
 }
 

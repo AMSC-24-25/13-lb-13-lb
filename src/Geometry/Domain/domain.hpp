@@ -25,8 +25,8 @@ private:
 
 public:
     void LoadFromFile(const std::string&);
-    void Partition(int) const;
-    void Partition(const std::vector<int>&) const;
+    void Partition(int);
+    void Partition(const std::vector<int>&);
 
     Subdomain<dim> GetSubDomain(int) const;
 
