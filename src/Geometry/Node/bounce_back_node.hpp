@@ -14,6 +14,9 @@ public:
 
     void Collide() override;
     void Propagate() override;
+
+    ~BoundaryNode() = default;
+};
 };
 
 #endif 

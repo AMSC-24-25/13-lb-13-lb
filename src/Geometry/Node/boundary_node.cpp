@@ -1,0 +1,1 @@
+//può essere rimosso, valutare se modificare distruttore o altre member functions
