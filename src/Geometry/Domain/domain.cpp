@@ -47,9 +47,15 @@ void Domain<dim>::Partition(const std::vector<int>& indexes) {
 }
 
 template <int dim>
-inline Subdomain<dim> Domain<dim>::GetSubDomain(int index) const
+inline Subdomain<dim>& Domain<dim>::GetSubDomain(int index) const
 {
     return this->_subdomains[index];
+}
+
+template <int dim>
+inline std::shared_ptr<Subdomain<dim>> Domain<dim>::GetSubDomainPtr(int index) const
+{
+    return std::shared_ptr<Subdomain<dim>>(this->_subdomains[index]);
 }
 
 template<int dim>

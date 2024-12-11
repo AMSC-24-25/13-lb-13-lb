@@ -11,6 +11,7 @@
 #include <vector>
 #include <unordered_map>
 #include <stdexcept>
+#include <memory>
 
 
 template<int dim>
@@ -28,7 +29,8 @@ public:
     void Partition(int);
     void Partition(const std::vector<int>&);
 
-    Subdomain<dim> GetSubDomain(int) const;
+    Subdomain<dim>&                 GetSubDomain(int) const;
+    std::shared_ptr<Subdomain<dim>> GetSubDomainPtr(int) const;
 
     Node<dim> GetNodeFromCoordinates(const Point<int, dim>&) const;
     std::vector<Node<dim>> GetNeighbours(const Point<int, dim>&) const;
