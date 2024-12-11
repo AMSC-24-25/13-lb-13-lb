@@ -2,7 +2,6 @@
 #define LBM_Metric
 
 #include "../Point/point.hpp"
-#include "../Domain/domain.hpp"
 #include "../Node/node.hpp"
 
 #include <vector>
@@ -19,13 +18,13 @@ public:
 };
 
 template<int dim> 
-class MetricManhattan : public MetricNeighbour<dim> {
+class MetricManhattan : MetricNeighbour<dim> {
 public:
     std::vector<Node<dim>> GetNeighbours(const Domain<dim>&, const Point<int, dim>&) override;
 };
 
 template<int dim> 
-class MetricChebychev : public MetricNeighbour<dim> {
+class MetricChebychev : MetricNeighbour<dim> {
 public:
     std::vector<Node<dim>> GetNeighbours(const Domain<dim>&, const Point<int, dim>&) override;
 };
