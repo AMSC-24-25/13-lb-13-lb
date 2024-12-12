@@ -32,4 +32,6 @@ namespace lattice_boltzmann_method {
     };
 }
 
+#include "openmp_step_simulation_strategy.cpp"
+
 #endif // OPENMP_STEP_SIMULATION_STRATEGY_HPP

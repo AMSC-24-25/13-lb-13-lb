@@ -28,4 +28,13 @@ namespace lattice_boltzmann_method
         this->current_time_ += this->time_step_;
     }
 }
+
+/*
+    {
+        Point<dim> point = node.getCoordinates()
+        matrix[point.getY()][point.getX()] = node.getVelocity().norm();
+        matrix[point.getY()][point.getX()] = node.getPressure();
+    }
+*/
+
 #endif

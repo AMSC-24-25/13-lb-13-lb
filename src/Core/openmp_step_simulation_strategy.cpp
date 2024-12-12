@@ -8,7 +8,7 @@ namespace lattice_boltzmann_method {
 
         // saving the subdomain pointers
         for ( int i=0; i < this->num_threads_; i++ ) {
-            subdomains_.push_back(this->domain_.GetSubdomainPtr(i));
+            subdomains_.push_back(this->domain_.GetSubDomainPtr(i));
         }
     }
 
@@ -17,15 +17,15 @@ namespace lattice_boltzmann_method {
         #pragma omp parallel
         {
             int thread_num = omp_get_thread_num();
-            std::shared_ptr<Subdomain<dim>> subdomain = subdomains_[i];
+            std::shared_ptr<Subdomain<dim>> subdomain = subdomains_[thread_num];
 
-            for ( std::shared_ptr<Node<dim>>& node : *subdomain ) {
-                node->Collide();
-                node->Propagate();
-                this->RunConstCallbacks(node.get());
+            for ( std::shared_ptr<Node<dim>>& nodePtr : *subdomain ) {
+                nodePtr->Collide();
+                nodePtr->Propagate();
+                this->RunConstCallbacks(*nodePtr);
             }
         }
-        current_time_ += time_step_;
+        this->current_time_ += this->time_step_;
     }
 
 }

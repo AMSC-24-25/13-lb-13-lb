@@ -119,7 +119,6 @@ namespace lattice_boltzmann_method
                 : StepSimulationStrategy<dim>{domain, std::move(node_callback), starting_time, time_step} {}
             virtual void Setup() override;
             virtual void SimulateNextStep() override;
-            virtual void SimulateUntil(double time) override;
 
         private:
             std::shared_ptr<Subdomain<dim>> subdomain_;
