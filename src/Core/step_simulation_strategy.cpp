@@ -20,10 +20,10 @@ namespace lattice_boltzmann_method
 
     template <int dim>
     void SerialStepSimulationStrategy<dim>::SimulateNextStep() {
-        for ( Node<dim> &node : subdomain_ ) {
-            node.Collide();
-            node.Propagate();
-            this->RunConstCallbacks(node);
+        for ( std::shared_ptr<Node<dim>> &nodePtr : *subdomain_ ) {
+            nodePtr->Collide();
+            nodePtr->Propagate();
+            this->RunConstCallbacks(*nodePtr);
         }
         this->current_time_ += this->time_step_;
     }

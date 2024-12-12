@@ -1,3 +1,6 @@
+#ifndef DOMAIN_CPP
+#define DOMAIN_CPP
+
 #include "domain.hpp"
 
 
@@ -67,3 +70,5 @@ template<int dim>
 inline std::vector<Node<dim>> Domain<dim>::GetNeighbours(const Point<int, dim>& point) const {
     return this->_k_neighbours_strategy->GetNeighbours(this, point);
 }
+
+#endif

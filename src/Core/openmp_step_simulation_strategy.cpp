@@ -19,7 +19,7 @@ namespace lattice_boltzmann_method {
             int thread_num = omp_get_thread_num();
             std::shared_ptr<Subdomain<dim>> subdomain = subdomains_[i];
 
-            for ( std::shared_ptr<Node<dim>>& node : subdomain ) {
+            for ( std::shared_ptr<Node<dim>>& node : *subdomain ) {
                 node->Collide();
                 node->Propagate();
                 this->RunConstCallbacks(node.get());

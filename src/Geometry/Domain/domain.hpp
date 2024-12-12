@@ -36,4 +36,6 @@ public:
     std::vector<Node<dim>> GetNeighbours(const Point<int, dim>&) const;
 };
 
+#include "domain.cpp"
+
 #endif
