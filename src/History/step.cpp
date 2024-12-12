@@ -8,7 +8,7 @@ namespace lattice_boltzmann_method
 
     VectorStep::VectorStep(const std::vector<double> &input_data) : data_(input_data) {}
 
-    void VectorStep::print() const
+    void VectorStep::Print() const
     {
         for (double val : data_)
         {
@@ -17,22 +17,22 @@ namespace lattice_boltzmann_method
         std::cout << std::endl;
     }
 
-    size_t VectorStep::size() const
+    size_t VectorStep::Size() const
     {
         return data_.size();
     }
 
-    void VectorStep::add(double value)
+    void VectorStep::Add(double value)
     {
         data_.push_back(value);
     }
 
-    std::vector<double> VectorStep::get() const
+    const void * VectorStep::Get() const
     {
-        return data_;
+        return &data_;
     }
 
-    void VectorStep::set(const std::vector<double>& input_data)
+    void VectorStep::Set(const std::vector<double>& input_data)
     {
         data_ = input_data;
     }
@@ -42,7 +42,7 @@ namespace lattice_boltzmann_method
 
     MatrixStep::MatrixStep(const std::vector<std::vector<double>> &input_data) : data_(input_data) {}
 
-    void MatrixStep::print() const
+    void MatrixStep::Print() const
     {
         for (const auto &row : data_)
         {
@@ -54,22 +54,22 @@ namespace lattice_boltzmann_method
         }
     }
 
-    size_t MatrixStep::size() const
+    size_t MatrixStep::Size() const
     {
         return data_.size();
     }
 
-    void MatrixStep::addRow(const std::vector<double> &row)
+    void MatrixStep::AddRow(const std::vector<double> &row)
     {
         data_.push_back(row);
     }
 
-    std::vector<std::vector<double>> MatrixStep::get() const
+    const void * MatrixStep::Get() const
     {
-        return data_;
+        return &data_;
     }
 
-    void MatrixStep::set(const std::vector<std::vector<double>>& input_data)
+    void MatrixStep::Set(const std::vector<std::vector<double>>& input_data)
     {
         data_ = input_data;
     }
