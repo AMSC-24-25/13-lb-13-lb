@@ -5,10 +5,13 @@
 
 #include <memory>
 
-template<int dim>
+template<int dim>//aggiungere num_direction oltre a dim per renderlo estendibile(cambiare poi 9 con num_directions)
 class Node {
-private:
+protected:
     Point<double, dim> _position;
+    std::array<double, 9> _f, _f_next, _f_eq;
+    double _rho;
+    std::array<double, dim> _u;
 
 public:
     Node<dim>(const Point<double, dim>&);

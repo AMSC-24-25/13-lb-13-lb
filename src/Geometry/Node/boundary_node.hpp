@@ -15,7 +15,7 @@ public:
     virtual void Collide() override = 0;
     virtual void Propagate() override = 0;
 
-    virtual ~BoundaryNode() = default;
+    virtual ~BoundaryNode() = default; //non dovrebbe servire
 };
 
 #endif
