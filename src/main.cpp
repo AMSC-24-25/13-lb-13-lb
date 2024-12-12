@@ -3,7 +3,7 @@
 using namespace lattice_boltzmann_method;
 
 int main(int argc, char *argv[]) {
-    SimulationManager simulation_manager = SimulationManager(argc, argv);
+    SimulationManager<2> simulation_manager = SimulationManager<2>(argc, argv);
     simulation_manager.Start();
     return 0;
 }

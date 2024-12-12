@@ -4,6 +4,8 @@
 #include <memory>
 #include <vector>
 
+#include "../Geometry/Domain/domain.hpp"
+#include "../Geometry/Domain/subdomain.hpp"
 #include "node_callback.hpp"
 #include "simulation_observer.hpp"
 
@@ -11,6 +13,8 @@ namespace lattice_boltzmann_method
 {
     /*
         @brief Abstract class that represents a strategy for simulating/calculating the values at the next time step with the Lattice Boltzmann Method (LBM). 
+
+        @tparam dim dimension of the problem (1, 2 or 3)
 
         This class is very general (indeed it is abstract): it can be inherited to implement in another way the Lattice Boltzmann Method
         At its's core, it uses a lattice_boltzmann_method::Domain object to access the nodes that compose the physical domain of the problem and 
@@ -31,12 +35,17 @@ namespace lattice_boltzmann_method
 
         A concrete implementation of this class might be parallel.
     */
+    template<int dim>
     class StepSimulationStrategy : public SimulationObservable {
         public:
-            StepSimulationStrategy(/*Domain &domain, */std::unique_ptr<NodeCallback> node_callback=nullptr) {
+            StepSimulationStrategy(Domain<dim> &domain, 
+                                   std::unique_ptr<NodeCallback<dim>> node_callback=nullptr,
+                                   double starting_time = 0.0,
+                                   double time_step = 0.1) 
+                    : domain_{domain}, current_time_{starting_time}, time_step_{time_step} {
                 node_callbacks_.push_back(std::move(node_callback));
             }
-            StepSimulationStrategy(std::vector<std::unique_ptr<NodeCallback>> node_callbacks) {
+            StepSimulationStrategy(std::vector<std::unique_ptr<NodeCallback<dim>>> node_callbacks) {
                 node_callbacks_.reserve(node_callbacks.size());
                 for ( int i=0; i<node_callbacks.size(); i++ ) {
                     if ( node_callbacks[i]) {
@@ -45,12 +54,17 @@ namespace lattice_boltzmann_method
                 }
             }
 
-            void AddNodeCallback(std::unique_ptr<NodeCallback> node_callback)  { 
+            void AddNodeCallback(std::unique_ptr<NodeCallback<dim>> node_callback)  { 
                 if ( node_callback ) {
                     node_callbacks_.push_back(std::move(node_callback));
                 }
             }
-            //Domain domain_;
+
+            /*
+                @brief setups the objects needed for the simulation.
+                Setup is not performed in the constructor, such that it is very light weigth.
+            */
+            virtual void Setup() = 0;
 
             /*
                 @brief calculates the next step of the simulation, which means it advances by a certain deltaT in the simulation
@@ -62,19 +76,56 @@ namespace lattice_boltzmann_method
                 @brief calculates the steps of the simulation until `time` is reached, stepping by a certain deltaT at each iteration
                 It is not constant since it changes the nodes
             */
-            virtual void SimulateUntil(double time)=0;
+            virtual void SimulateUntil(double time);
         protected:
-            std::vector<std::unique_ptr<NodeCallback>> node_callbacks_;
-        private:
+            std::vector<std::unique_ptr<NodeCallback<dim>>> node_callbacks_;
+            Domain<dim> &domain_;
+            double current_time_;
+            double time_step_;
+
+            inline void RunConstCallbacks(const Node<dim> &node) {
+                for ( std::unique_ptr<NodeCallback<dim>> &callback : node_callbacks_ ) {
+                    callback->HandleNode(node);
+                }
+            }
+
+            inline void RunNonConstCallbacks(Node<dim> &node) {
+                for ( std::unique_ptr<NodeCallback<dim>> &callback : node_callbacks_ ) {
+                    callback->HandleNonConstNode(node);
+                }
+            }
     };
 
-    class SerialStepSimulationStrategy : public StepSimulationStrategy {
+    /*
+        @brief serial implementation of the abstract class lattice_boltzmann_method::StepSimulationStrategy<dim>. Refer to this for a general description.
+
+        The simulation is here implemented serially. User might expect the code to be:
+        for { auto node : collection_of_nodes } {
+            node.Collide()
+            node.Propagate();
+            // callbacks ...
+        }
+
+        This class is a basic example of implementation, we do not suggest to use it. Use a parallel version instead.
+
+    */
+    template<int dim>
+    class SerialStepSimulationStrategy : public StepSimulationStrategy<dim> {
         public:
-            SerialStepSimulationStrategy(std::unique_ptr<NodeCallback> node_callback) : StepSimulationStrategy{std::move(node_callback)} {}
+            SerialStepSimulationStrategy(Domain<dim> &domain, 
+                                         std::unique_ptr<NodeCallback<dim>> node_callback,
+                                         double starting_time = 0.0,
+                                         double time_step     = 0.1) 
+                : StepSimulationStrategy<dim>{domain, std::move(node_callback), starting_time, time_step} {}
+            virtual void Setup() override;
             virtual void SimulateNextStep() override;
-            virtual void SimulateUntil(double time) override;
+
         private:
+            std::shared_ptr<Subdomain<dim>> subdomain_;
     };
+
 }
 
-#endif
+#include "step_simulation_strategy.cpp"
+
+#endif // STEP_SIMULATION_STRATEGY_HPP

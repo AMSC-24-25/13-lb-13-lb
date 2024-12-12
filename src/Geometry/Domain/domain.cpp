@@ -1,3 +1,6 @@
+#ifndef DOMAIN_CPP
+#define DOMAIN_CPP
+
 #include "domain.hpp"
 
 
@@ -23,10 +26,10 @@ void Domain<dim>::LoadFromFile(const std::string& path) {
 
     switch(strategy) {
         case 1:
-            this->_k_neighbours_strategy = MetricManhattan<dim>();
+            this->_k_neighbours_strategy = std::unique_ptr<MetricNeighbour<dim>>(MetricManhattan<dim>());
             break;
         case 2:
-            this->_k_neighbours_strategy = MetricChebychev<dim>();
+            this->_k_neighbours_strategy = std::unique_ptr<MetricNeighbour<dim>>(MetricChebychev<dim>());
             break;
     }
 
@@ -55,11 +58,11 @@ inline Subdomain<dim>& Domain<dim>::GetSubDomain(int index) const
 template <int dim>
 inline std::shared_ptr<Subdomain<dim>> Domain<dim>::GetSubDomainPtr(int index) const
 {
-    return std::shared_ptr<Subdomain<dim>>(this->_subdomains[index]);
+    return std::make_shared<Subdomain<dim>>(this->_subdomains[index]);
 }
 
 template<int dim>
-inline Node<dim> Domain<dim>::GetNodeFromCoordinates(const Point<int, dim>& point) const {
+inline std::shared_ptr<Node<dim>> Domain<dim>::GetNodeFromCoordinates(const Point<int, dim>& point) const {
     return this->_k_point_to_node[point];
 }
 
@@ -67,3 +70,5 @@ template<int dim>
 inline std::vector<Node<dim>> Domain<dim>::GetNeighbours(const Point<int, dim>& point) const {
     return this->_k_neighbours_strategy->GetNeighbours(this, point);
 }
+
+#endif
