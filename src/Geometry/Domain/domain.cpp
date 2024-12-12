@@ -58,7 +58,7 @@ inline Subdomain<dim>& Domain<dim>::GetSubDomain(int index) const
 template <int dim>
 inline std::shared_ptr<Subdomain<dim>> Domain<dim>::GetSubDomainPtr(int index) const
 {
-    return std::shared_ptr<Subdomain<dim>>(this->_subdomains[index]);
+    return std::make_shared<Subdomain<dim>>(this->_subdomains[index]);
 }
 
 template<int dim>
