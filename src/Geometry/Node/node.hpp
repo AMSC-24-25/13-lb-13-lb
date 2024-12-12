@@ -4,6 +4,8 @@
 #include "../Point/point.hpp"
 
 #include <memory>
+#include "metric.hpp"
+#include <array>
 
 template<int dim>//aggiungere num_direction oltre a dim per renderlo estendibile(cambiare poi 9 con num_directions)
 class Node {
@@ -12,6 +14,7 @@ protected:
     std::array<double, 9> _f, _f_next, _f_eq;
     double _rho;
     std::array<double, dim> _u;
+    MetricNeighbour<dim>* metric;
 
 public:
     Node<dim>(const Point<double, dim>&);
