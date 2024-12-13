@@ -7,8 +7,8 @@ template<int dim>
 class BoundaryNode : public Node<dim> {
 public:
 
-    BoundaryNode(const Point<double, dim>& position)
-        : Node<dim>(position) {} //forse è meglio che sia explicit
+    explicit BoundaryNode(const Point<double, dim>& position)
+        : Node<dim>(position) {}
     
     virtual void BoundaryFunction() = 0;
 

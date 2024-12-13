@@ -7,8 +7,8 @@ template<int dim>
 class BounceBackNode : public BoundaryNode<dim> {
 public:
     
-    BounceBackNode(const Point<double, dim>& position)
-        : BoundaryNode<dim>(position) {} //forse è meglio che sia explicit
+    explicit BounceBackNode(const Point<double, dim>& position)
+        : BoundaryNode<dim>(position) {}
 
     void BoundaryFunction() override;
 
