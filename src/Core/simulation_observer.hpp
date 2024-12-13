@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include "../History/history.hpp"
+#include "../History/step.hpp"
 
 namespace lattice_boltzmann_method {
     /*
