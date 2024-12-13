@@ -4,7 +4,7 @@
 #include "boundary_node.hpp"
 
 template<int dim, int num_directions>
-class BounceBackNode : public BoundaryNode<dim> {
+class BounceBackNode : public BoundaryNode<dim, num_directions> {
 public:
     
     explicit BounceBackNode(const Point<double, dim>& position)
@@ -15,7 +15,7 @@ public:
     void Collide() override;
     void Propagate() override;
 
-    ~BoundaryNode() = default;
+    ~BounceBackNode() = default;
 };
 
 #endif 

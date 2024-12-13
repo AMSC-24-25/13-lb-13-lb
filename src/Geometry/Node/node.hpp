@@ -4,7 +4,6 @@
 #include "../Point/point.hpp"
 
 #include <memory>
-#include "metric.hpp"
 #include <array>
 
 template<int dim, int num_directions>
