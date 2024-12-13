@@ -3,12 +3,12 @@
 
 #include "boundary_node.hpp"
 
-template<int dim>
+template<int dim, int num_directions>
 class BounceBackNode : public BoundaryNode<dim> {
 public:
     
     explicit BounceBackNode(const Point<double, dim>& position)
-        : BoundaryNode<dim>(position) {}
+        : BoundaryNode<dim, num_directions>(position) {}
 
     void BoundaryFunction() override;
 

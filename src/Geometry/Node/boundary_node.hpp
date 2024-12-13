@@ -3,12 +3,12 @@
 
 #include "node.hpp"
 
-template<int dim>
-class BoundaryNode : public Node<dim> {
+template<int dim, int num_directions>
+class BoundaryNode : public Node<dim, num_directions> {
 public:
 
     explicit BoundaryNode(const Point<double, dim>& position)
-        : Node<dim>(position) {}
+        : Node<dim, num_directions>(position) {}
     
     virtual void BoundaryFunction() = 0;
 
