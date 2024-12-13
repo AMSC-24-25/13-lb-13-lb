@@ -25,7 +25,7 @@ private:
     double _k_density;    // TODO: move to nodes for extensibility
 
 public:
-    void LoadFromFile(const std::string&);
+    //void LoadFromFile(const std::string&);
     void Partition(int);
     void Partition(const std::vector<int>&);
 

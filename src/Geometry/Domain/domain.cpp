@@ -4,7 +4,7 @@
 #include "domain.hpp"
 
 
-template<int dim>
+/*template<int dim>
 void Domain<dim>::LoadFromFile(const std::string& path) {
     /* File structure:
      * Row 1: Neighbour strategy ("1": Manhattan, "2": Chebychev)
@@ -14,7 +14,7 @@ void Domain<dim>::LoadFromFile(const std::string& path) {
      *  Point description (all on one line): 
      *      Coordinates ("(x y) or (x y z)")
      *      Node type "type"
-    */
+    *//*
 
    std::ifstream file(path);
 
@@ -37,7 +37,7 @@ void Domain<dim>::LoadFromFile(const std::string& path) {
     file >> this->_k_density;
 
     // TODO: finish loading
-}
+}*/
 
 template<int dim>
 void Domain<dim>::Partition(int partitions) {
@@ -135,8 +135,8 @@ inline std::shared_ptr<Node<dim>> Domain<dim>::GetNodeFromCoordinates(const Poin
 }
 
 template<int dim>
-inline std::vector<Node<dim>> Domain<dim>::GetNeighbours(const Point<int, dim>& point) const {
-    return this->_k_neighbours_strategy->GetNeighbours(this, point);
+inline std::vector<std::shared_ptr<Node<dim>>> Domain<dim>::GetNeighbours(const Point<int, dim>& point) const {
+    return this->_k_neighbours_strategy->GetNeighbours(*this, point);
 }
 
 #endif
