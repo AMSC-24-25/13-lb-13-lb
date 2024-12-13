@@ -30,6 +30,7 @@ set(SOURCES
     # History
 	${CMAKE_CURRENT_LIST_DIR}/../src/History/history.cpp
 	${CMAKE_CURRENT_LIST_DIR}/../src/History/step.cpp
+	${CMAKE_CURRENT_LIST_DIR}/../src/History/node_step.cpp
 
 	# Debug
 	${CMAKE_CURRENT_LIST_DIR}/../src/Debug/compiler_debug.cpp
@@ -54,6 +55,8 @@ set(HEADERS
     # History
 	${CMAKE_CURRENT_LIST_DIR}/../src/History/history.hpp
 	${CMAKE_CURRENT_LIST_DIR}/../src/History/step.hpp
+	${CMAKE_CURRENT_LIST_DIR}/../src/History/node_step.hpp
+	${CMAKE_CURRENT_LIST_DIR}/../src/History/node_reading_strategy.hpp
 
 	# Debug
 	${CMAKE_CURRENT_LIST_DIR}/../src/Debug/compiler_debug.hpp

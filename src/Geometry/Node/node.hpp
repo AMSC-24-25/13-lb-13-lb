@@ -29,8 +29,6 @@ public:
     int GetId() const;  // need enumeration for hashmaps in partitioning
 };
 
-// template instances
-template class Node<2>;
-template class Node<3>;
+#include "node.cpp"
 
 #endif

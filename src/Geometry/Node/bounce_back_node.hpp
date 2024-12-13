@@ -17,6 +17,5 @@ public:
 
     ~BoundaryNode() = default;
 };
-};
 
 #endif 

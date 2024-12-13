@@ -120,7 +120,7 @@ void Domain<dim>::Partition(const std::vector<int>& indexes) {
 }
 
 template <int dim>
-inline Subdomain<dim>& Domain<dim>::GetSubDomain(int index) const {
+inline Subdomain<dim>& Domain<dim>::GetSubDomain(int index) {
     return this->_subdomains[index];
 }
 
@@ -130,7 +130,7 @@ inline std::shared_ptr<Subdomain<dim>> Domain<dim>::GetSubDomainPtr(int index) c
 }
 
 template<int dim>
-inline std::shared_ptr<Node<dim>> Domain<dim>::GetNodeFromCoordinates(const Point<int, dim>& point) const {
+inline std::shared_ptr<Node<dim>> Domain<dim>::GetNodeFromCoordinates(const Point<int, dim>& point) {
     return this->_k_point_to_node[point];
 }
 

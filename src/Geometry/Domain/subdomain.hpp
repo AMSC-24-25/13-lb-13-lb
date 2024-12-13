@@ -33,7 +33,6 @@ private:
     int _id;
 };
 
-template class Subdomain<2>;
-template class Subdomain<3>;
+#include "subdomain.cpp"
 
 #endif

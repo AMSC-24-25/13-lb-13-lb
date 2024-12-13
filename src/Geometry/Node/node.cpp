@@ -1,3 +1,6 @@
+#ifndef NODE_CPP
+#define NODE_CPP
+
 #include "node.hpp"
 
 template<int dim>
@@ -22,3 +25,5 @@ inline int Node<dim>::GetId() const {
 }
 
 //getter per distribuzioni
+
+#endif

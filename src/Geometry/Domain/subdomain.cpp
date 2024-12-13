@@ -1,3 +1,5 @@
+#ifndef SUBDOMAIN_CPP
+#define SUBDOMAIN_CPP
 #include "subdomain.hpp"
 
 template <int dim>
@@ -38,3 +40,4 @@ typename std::vector<std::shared_ptr<Node<dim>>>::iterator Subdomain<dim>::end()
 {
     return this->_internal_domain.end();
 }
+#endif
