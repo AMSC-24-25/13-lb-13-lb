@@ -1,3 +1,6 @@
+#ifndef POINT_CPP
+#define POINT_CPP
+
 #include "point.hpp"
 
 template<typename T, int dim>
@@ -62,7 +65,9 @@ namespace std {
     template <typename T, int dim>
     struct hash<Point<T, dim>> {
         size_t operator()(const Point<T, dim>& point) const {
-            return point->GetHash();
+            return point.GetHash();
         }
     };
 }
+
+#endif

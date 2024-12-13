@@ -14,19 +14,19 @@ class Domain;
 template<int dim>
 class MetricNeighbour {
 public:
-    virtual std::vector<Node<dim>> GetNeighbours(const Domain<dim>&, const Point<int, dim>&) = 0;
+    virtual std::vector<std::shared_ptr<Node<dim>>> GetNeighbours(const Domain<dim>&, const Point<int, dim>&) = 0;
 };
 
 template<int dim> 
 class MetricManhattan : MetricNeighbour<dim> {
 public:
-    std::vector<Node<dim>> GetNeighbours(const Domain<dim>&, const Point<int, dim>&) override;
+    std::vector<std::shared_ptr<Node<dim>>> GetNeighbours(const Domain<dim>&, const Point<int, dim>&) override;
 };
 
 template<int dim> 
 class MetricChebychev : MetricNeighbour<dim> {
 public:
-    std::vector<Node<dim>> GetNeighbours(const Domain<dim>&, const Point<int, dim>&) override;
+    std::vector<std::shared_ptr<Node<dim>>> GetNeighbours(const Domain<dim>&, const Point<int, dim>&) override;
 };
 
 #endif

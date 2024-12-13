@@ -9,6 +9,9 @@
 
 template<int dim>//aggiungere num_direction oltre a dim per renderlo estendibile(cambiare poi 9 con num_directions)
 class Node {
+private:
+    static int _id;
+
 protected:
     Point<double, dim> _position;
     std::array<double, 9> _f, _f_next, _f_eq;
@@ -25,10 +28,10 @@ public:
     virtual std::unique_ptr<Node<dim>> clone() const = 0;
 
     Point<double, dim> GetPosition() const;
+
+    int GetId() const;  // need enumeration for hashmaps in partitioning
 };
 
-// template instances
-template class Node<2>;
-template class Node<3>;
+#include "node.cpp"
 
 #endif
