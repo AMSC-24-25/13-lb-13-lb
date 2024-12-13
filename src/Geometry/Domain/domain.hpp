@@ -19,7 +19,7 @@ class Domain {
 private:
     const std::unique_ptr<MetricNeighbour<dim>> _k_neighbours_strategy;
     const std::unordered_map<Point<int, dim>, std::shared_ptr<Node<dim>>> _k_point_to_node;
-    std::vector<Subdomain<dim>> _subdomains;
+    std::unordered_map<int, Subdomain<dim>> _subdomains;
 
     int _k_reynolds;
     double _k_density;    // TODO: move to nodes for extensibility
@@ -33,7 +33,7 @@ public:
     std::shared_ptr<Subdomain<dim>> GetSubDomainPtr(int) const;
 
     std::shared_ptr<Node<dim>> GetNodeFromCoordinates(const Point<int, dim>&) const;
-    std::vector<Node<dim>> GetNeighbours(const Point<int, dim>&) const;
+    std::vector<std::shared_ptr<Node<dim>>> GetNeighbours(const Point<int, dim>&) const;
 };
 
 #include "domain.cpp"

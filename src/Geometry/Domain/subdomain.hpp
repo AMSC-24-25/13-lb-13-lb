@@ -13,8 +13,11 @@ public:
     // bugs using alias in VisualStudioCode and I'm loosing too much time...
     //using DomainNodes = std::vector<std::shared_ptr<Node<dim>>>;
 
+    Subdomain() {}
+
     Subdomain(const std::vector<std::shared_ptr<Node<dim>>>&, 
-    const std::unordered_map<int, std::vector<std::shared_ptr<Node<dim>>>>&, int);
+    const std::unordered_map<int, std::vector<std::shared_ptr<Node<dim>>>>&,
+    int);
 
     std::vector<std::shared_ptr<Node<dim>>> GetInterface(int);
     std::vector<int> GetNeighboursId();

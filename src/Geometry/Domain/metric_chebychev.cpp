@@ -5,8 +5,8 @@
 
 // Chebychev metric, computes neighbours also on diagonals
 template<int dim>
-std::vector<Node<dim>> MetricChebychev<dim>::GetNeighbours(const Domain<dim>& domain, const Point<int, dim>& point) {
-    std::vector<Node<dim>> neighbours;
+std::vector<std::shared_ptr<Node<dim>>> MetricChebychev<dim>::GetNeighbours(const Domain<dim>& domain, const Point<int, dim>& point) {
+    std::vector<std::shared_ptr<Node<dim>>> neighbours;
 
     for (int i = 0; i < (1 << (2 * dim)); ++i) {
         bool is_original = true;
@@ -24,7 +24,7 @@ std::vector<Node<dim>> MetricChebychev<dim>::GetNeighbours(const Domain<dim>& do
         }
         Point<int, dim> neighbor(point, var);
 
-        Node<dim> n = domain.GetNodeFromCoordinates(neighbor);
+        std::shared_ptr<Node<dim>> n = domain.GetNodeFromCoordinates(neighbor);
         if (!is_original && n != nullptr) {
             neighbours.push_back(domain.GetNodeFromCoordinates());
         }
