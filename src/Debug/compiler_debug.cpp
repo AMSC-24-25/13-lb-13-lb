@@ -27,6 +27,11 @@ template class OpenMPStepSimulationStrategy<1>;
 template class OpenMPStepSimulationStrategy<2>;
 template class OpenMPStepSimulationStrategy<3>;
 
+// step_simulation_strategy_parser.hpp
+template class StepSimulationStrategyParser<1>;
+template class StepSimulationStrategyParser<2>;
+template class StepSimulationStrategyParser<3>;
+
 // point.hpp
 template class Point<int, 1>;
 template class Point<int, 2>;

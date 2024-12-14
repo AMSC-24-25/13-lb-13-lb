@@ -2,8 +2,9 @@
 #define COMPILER_DEBUG_HPP
 
 #include "../Core/simulation_manager.hpp"
-#include "../Core/step_simulation_strategy.hpp"
-#include "../Core/openmp_step_simulation_strategy.hpp"
+#include "../Core/StepSimulationStrategy/step_simulation_strategy.hpp"
+#include "../Core/StepSimulationStrategy/openmp_step_simulation_strategy.hpp"
+#include "../Core/StepSimulationStrategy/Parser/step_simulation_strategy_parser.hpp"
 
 #include "../History/node_step.hpp"
 #include "../History/node_reading_strategy.hpp"
