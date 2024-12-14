@@ -42,3 +42,4 @@ main
 *Makefile
 *cmake_install.cmake
 
+*.csv

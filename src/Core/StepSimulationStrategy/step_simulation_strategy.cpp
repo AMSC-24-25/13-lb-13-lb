@@ -5,6 +5,7 @@
 
 namespace lattice_boltzmann_method 
 {
+
     template<int dim>
     void StepSimulationStrategy<dim>::SimulateUntil(double time) {
         while ( current_time_ < time ) {
@@ -12,10 +13,18 @@ namespace lattice_boltzmann_method
         }
     }
 
+    template<int dim>
+    void SerialStepSimulationStrategy<dim>::Initialize(std::shared_ptr<Domain<dim>> domain, 
+                                        std::vector<std::shared_ptr<NodeCallback<dim>>> node_callbacks,
+                                        double starting_time,
+                                        double time_step) {
+        this->Initialize_(domain, node_callbacks, starting_time, time_step);
+    }
+
     template <int dim>
     void SerialStepSimulationStrategy<dim>::Setup() {
-        this->domain_.Partition({0});
-        subdomain_ = this->domain_.GetSubDomainPtr(0);
+        this->domain_->Partition({0});
+        subdomain_ = this->domain_->GetSubDomainPtr(0);
     }
 
     template <int dim>
@@ -29,12 +38,4 @@ namespace lattice_boltzmann_method
     }
 }
 
-/*
-    {
-        Point<dim> point = node.getCoordinates()
-        matrix[point.getY()][point.getX()] = node.getVelocity().norm();
-        matrix[point.getY()][point.getX()] = node.getPressure();
-    }
-*/
-
-#endif
+#endif // STEP_SIMULATION_STRATEGY_CPP

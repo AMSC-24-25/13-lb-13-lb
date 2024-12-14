@@ -4,10 +4,10 @@
 #include <memory>
 #include <vector>
 
-#include "../Geometry/Domain/domain.hpp"
-#include "../Geometry/Domain/subdomain.hpp"
-#include "node_callback.hpp"
-#include "simulation_observer.hpp"
+#include "../../Geometry/Domain/domain.hpp"
+#include "../../Geometry/Domain/subdomain.hpp"
+#include "../Utils/node_callback.hpp"
+#include "../Utils/simulation_observer.hpp"
 
 namespace lattice_boltzmann_method 
 {
@@ -38,14 +38,21 @@ namespace lattice_boltzmann_method
     template<int dim>
     class StepSimulationStrategy : public SimulationObservable {
         public:
-            StepSimulationStrategy(Domain<dim> &domain, 
-                                   std::unique_ptr<NodeCallback<dim>> node_callback=nullptr,
+            StepSimulationStrategy() {};
+
+            StepSimulationStrategy(std::shared_ptr<Domain<dim>> domain, 
+                                   std::shared_ptr<NodeCallback<dim>> node_callback=nullptr,
                                    double starting_time = 0.0,
                                    double time_step = 0.1) 
                     : domain_{domain}, current_time_{starting_time}, time_step_{time_step} {
-                node_callbacks_.push_back(std::move(node_callback));
+                node_callbacks_.push_back(node_callback);
             }
-            StepSimulationStrategy(std::vector<std::unique_ptr<NodeCallback<dim>>> node_callbacks) {
+            StepSimulationStrategy(std::shared_ptr<Domain<dim>> domain, 
+                                   std::vector<std::shared_ptr<NodeCallback<dim>>> node_callbacks,
+                                   double starting_time = 0.0,
+                                   double time_step = 0.1) 
+                    : domain_{domain}, current_time_{starting_time}, time_step_{time_step}
+            {
                 node_callbacks_.reserve(node_callbacks.size());
                 for ( int i=0; i<node_callbacks.size(); i++ ) {
                     if ( node_callbacks[i]) {
@@ -54,7 +61,8 @@ namespace lattice_boltzmann_method
                 }
             }
 
-            void AddNodeCallback(std::unique_ptr<NodeCallback<dim>> node_callback)  { 
+
+            void AddNodeCallback(std::shared_ptr<NodeCallback<dim>> node_callback)  { 
                 if ( node_callback ) {
                     node_callbacks_.push_back(std::move(node_callback));
                 }
@@ -78,21 +86,31 @@ namespace lattice_boltzmann_method
             */
             virtual void SimulateUntil(double time);
         protected:
-            std::vector<std::unique_ptr<NodeCallback<dim>>> node_callbacks_;
-            Domain<dim> &domain_;
+            std::vector<std::shared_ptr<NodeCallback<dim>>> node_callbacks_;
+            std::shared_ptr<Domain<dim>> domain_;
             double current_time_;
             double time_step_;
 
             inline void RunConstCallbacks(const Node<dim> &node) {
-                for ( std::unique_ptr<NodeCallback<dim>> &callback : node_callbacks_ ) {
+                for ( std::shared_ptr<NodeCallback<dim>> &callback : node_callbacks_ ) {
                     callback->HandleNode(node);
                 }
             }
 
             inline void RunNonConstCallbacks(Node<dim> &node) {
-                for ( std::unique_ptr<NodeCallback<dim>> &callback : node_callbacks_ ) {
+                for ( std::shared_ptr<NodeCallback<dim>> &callback : node_callbacks_ ) {
                     callback->HandleNonConstNode(node);
                 }
+            }
+
+            virtual void Initialize_(std::shared_ptr<Domain<dim>> domain, 
+                                     std::vector<std::shared_ptr<NodeCallback<dim>>> node_callbacks,
+                                     double starting_time = 0.0,
+                                     double time_step = 0.1) {
+                domain_         = domain;
+                node_callbacks_ = node_callbacks;
+                current_time_   = starting_time;
+                time_step_      = time_step;
             }
     };
 
@@ -112,14 +130,20 @@ namespace lattice_boltzmann_method
     template<int dim>
     class SerialStepSimulationStrategy : public StepSimulationStrategy<dim> {
         public:
-            SerialStepSimulationStrategy(Domain<dim> &domain, 
-                                         std::unique_ptr<NodeCallback<dim>> node_callback,
+            SerialStepSimulationStrategy() {};
+            SerialStepSimulationStrategy(std::shared_ptr<Domain<dim>> domain, 
+                                         std::shared_ptr<NodeCallback<dim>> node_callback,
                                          double starting_time = 0.0,
                                          double time_step     = 0.1) 
-                : StepSimulationStrategy<dim>{domain, std::move(node_callback), starting_time, time_step} {}
+                : StepSimulationStrategy<dim>{domain, node_callback, starting_time, time_step} {}
+
+            void Initialize(std::shared_ptr<Domain<dim>> domain, 
+                            std::vector<std::shared_ptr<NodeCallback<dim>>> node_callbacks,
+                            double starting_time = 0.0,
+                            double time_step = 0.1);
+
             virtual void Setup() override;
             virtual void SimulateNextStep() override;
-
         private:
             std::shared_ptr<Subdomain<dim>> subdomain_;
     };

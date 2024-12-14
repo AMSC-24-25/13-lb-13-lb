@@ -10,8 +10,8 @@
 
 #include "step.hpp"
 #include "../Geometry/Point/point.hpp"
-#include "../Core/node_callback.hpp"
-#include "../Core/simulation_observer.hpp"
+#include "../Core/Utils/node_callback.hpp"
+#include "../Core/Utils/simulation_observer.hpp"
 #include "node_reading_strategy.hpp"
 
 namespace lattice_boltzmann_method 
@@ -89,8 +89,7 @@ namespace lattice_boltzmann_method
                 );
             };
 
-            void HandleNode(const Node<1> &node);
-            void HandleNonConstNode(Node<1> &node);
+            virtual void SaveNode(const Node<1>& node) override;
             void Print() const;
             size_t Size() const;
             const void * Get() const;
@@ -120,8 +119,7 @@ namespace lattice_boltzmann_method
                 );
             };
 
-            void HandleNode(const Node<2> &node);
-            void HandleNonConstNode(Node<2> &node);
+            virtual void SaveNode(const Node<2>& node) override;
             void Print() const;
             size_t Size() const;
             const void * Get() const;
@@ -151,8 +149,7 @@ namespace lattice_boltzmann_method
                 );
             };
 
-            void HandleNode(const Node<3> &node);
-            void HandleNonConstNode(Node<3> &node);
+            virtual void SaveNode(const Node<3>& node) override;
             void Print() const;
             size_t Size() const;
             const void * Get() const;
@@ -215,14 +212,14 @@ namespace lattice_boltzmann_method
                 Adds the node to the NodeStep, only if current iteration is the
                 first one or num_steps_to_skip_ away from the previous one
             */
-            virtual void HandleNode(const Node<dim> &node) = 0;
+            virtual void HandleNode(const Node<dim> &node);
             /* 
                 Method inherited from lattice_boltzmann_method::NodeCallback<dim>.
 
                 Adds the node to the NodeStep, only if current iteration is the
                 first one or num_steps_to_skip_ away from the previous one
             */
-            virtual void HandleNonConstNode(Node<dim> &node) = 0;
+            virtual void HandleNonConstNode(Node<dim> &node);
 
         protected:
             /*

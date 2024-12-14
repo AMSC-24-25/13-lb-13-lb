@@ -4,7 +4,7 @@
 #ifndef NODE_CALLBACK_HPP
 #define NODE_CALLBACK_HPP
 
-#include "../Geometry/Node/node.hpp"
+#include "../../Geometry/Node/node.hpp"
 
 namespace lattice_boltzmann_method
 {

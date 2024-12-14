@@ -1,9 +1,13 @@
+/*
+    @author GiacomoPauletti
+*/
+
 #ifndef SIMULATION_OBSERVER_HPP
 #define SIMULATION_OBSERVER_HPP
 
 #include <memory>
 
-#include "../History/step.hpp"
+#include "../../History/step.hpp"
 
 namespace lattice_boltzmann_method {
     /*

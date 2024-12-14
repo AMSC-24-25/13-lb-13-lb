@@ -2,8 +2,12 @@
 #define SIMULATION_MANAGER_HPP
 
 #include <memory>
+#include <string>
 
-#include "step_simulation_strategy.hpp"
+#include "StepSimulationStrategy/step_simulation_strategy.hpp"
+#include "StepSimulationStrategy/Parser/step_simulation_strategy_parser.hpp"
+#include "../History/history.hpp"
+#include "../History/Parser/history_parser.hpp"
 
 namespace lattice_boltzmann_method
 {
@@ -18,21 +22,55 @@ namespace lattice_boltzmann_method
             1. from the command line through the command line parameters (eg. -Re sets the reynold number of the fluid). See later for further details
                 - Obviously, the mesh cannot be passed through the command line; pass instead the path
             2. by passing a LatticeBoltzmannParameter object when constructing the object
-            3. by passing through command line a path to a .json file through the option `-parameters`
+            3. by passing a path to a file in which everything is contained
     */
     template<int dim>
     class SimulationManager 
     {
         public:
-            SimulationManager(int argc, char *argv[], std::unique_ptr<StepSimulationStrategy<dim>> step_strategy=nullptr) : step_strategy_{std::move(step_strategy)} {
-                /* Parsing arguments from cli*/
-                // ...
+            /*
+                @brief Initializes the SimulationManager from the command line
+            */
+            SimulationManager(int &argc, char *argv[],
+                        std::shared_ptr<StepSimulationStrategyParser<dim>> simulation_strategy_parser,
+                        std::shared_ptr<HistoryParser> history_parser) {
+                this->Parse_(simulation_strategy_parser, history_parser, argc, argv);
             }
 
+            /*
+                @brief Initializes the SimulationManager from the command line but with 
+                       step_strategy and history given by the caller
+            */
+            SimulationManager(int argc, char *argv[],
+                              std::shared_ptr<StepSimulationStrategy<dim>> step_strategy,
+                              std::shared_ptr<History> history)
+                : step_strategy_{step_strategy}, history_{history} {}
+
+            /*
+                @brief Initializes the SimulationManager from a file
+            */
+            SimulationManager(const std::string &path,
+                        std::shared_ptr<StepSimulationStrategyParser<dim>> simulation_strategy_parser,
+                        std::shared_ptr<HistoryParser> history_parser) {
+                this->ParseFromFile_(simulation_strategy_parser, history_parser, path);
+            }
+
+            /*
+                @brief Starts the simulation
+            */
             void Start();
 
         protected:
-            std::unique_ptr<StepSimulationStrategy<dim>> step_strategy_;
+            std::shared_ptr<StepSimulationStrategy<dim>> step_strategy_;
+            std::shared_ptr<History> history_;
+
+            virtual void Parse_(std::shared_ptr<StepSimulationStrategyParser<dim>> simulation_strategy_parser,
+                              std::shared_ptr<HistoryParser> history_parser,
+                               int &argc, char *argv[]);
+                        
+            virtual void ParseFromFile_(std::shared_ptr<StepSimulationStrategyParser<dim>> simulation_strategy_parser,
+                              std::shared_ptr<HistoryParser> history_parser,
+                              const std::string &path);
 
             virtual void LoadDomain();
             virtual void SetupDomain();
@@ -42,4 +80,4 @@ namespace lattice_boltzmann_method
 
 #include "simulation_manager.cpp"
 
-#endif
+#endif // SIMULATION_MANAGER_HPP

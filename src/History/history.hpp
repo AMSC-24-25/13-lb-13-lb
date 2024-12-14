@@ -4,9 +4,8 @@
 #include <fstream>
 #include <string>
 #include "step.hpp"
-#include "../Core/simulation_observer.hpp"
+#include "../Core/Utils/simulation_observer.hpp"
 #include <algorithm>
-#define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "../include/stb_image_write.h"
 
 namespace lattice_boltzmann_method

@@ -70,7 +70,7 @@ namespace lattice_boltzmann_method
     }
 
     template <typename DataType>
-    void NodeStep1D<DataType>::HandleNode(const Node<1> &node) {
+    void NodeStep1D<DataType>::SaveNode(const Node<1> &node) {
         const int kXIndex = static_cast<int>(
             node.GetPosition().GetCoordinate(0) / this->cell_size_
         );
@@ -78,10 +78,6 @@ namespace lattice_boltzmann_method
         matrix_[kXIndex] = this->reading_strategy_.Read(node);
     }
 
-    template <typename DataType>
-    void NodeStep1D<DataType>::HandleNonConstNode(Node<1> &node) {
-        this->HandleNode(node);
-    }
 
     // ========================== NodeStep2D ==============================
     template <typename DataType>
@@ -100,7 +96,7 @@ namespace lattice_boltzmann_method
     }
 
     template <typename DataType>
-    void NodeStep2D<DataType>::HandleNode(const Node<2> &node) {
+    void NodeStep2D<DataType>::SaveNode(const Node<2> &node) {
         const int kXIndex = static_cast<int>(
             node.GetPosition().GetCoordinate(0) / this->cell_size_
         );
@@ -109,11 +105,6 @@ namespace lattice_boltzmann_method
         );
 
         matrix_[kYIndex][kXIndex] = this->reading_strategy_.Read(node);
-    }
-
-    template <typename DataType>
-    void NodeStep2D<DataType>::HandleNonConstNode(Node<2> &node) {
-        this->HandleNode(node);
     }
 
     // ========================== NodeStep2D ==============================
@@ -133,7 +124,7 @@ namespace lattice_boltzmann_method
     }
 
     template <typename DataType>
-    void NodeStep3D<DataType>::HandleNode(const Node<3> &node) {
+    void NodeStep3D<DataType>::SaveNode(const Node<3> &node) {
         const int kXIndex = static_cast<int>(
             node.GetPosition().GetCoordinate(0) / this->cell_size_
         );
@@ -147,9 +138,5 @@ namespace lattice_boltzmann_method
         matrix_[kZIndex][kYIndex][kXIndex] = this->reading_strategy_.Read(node);
     }
 
-    template <typename DataType>
-    void NodeStep3D<DataType>::HandleNonConstNode(Node<3> &node) {
-        this->HandleNode(node);
-    }
 }
 #endif // NODE_STEP_CPP
