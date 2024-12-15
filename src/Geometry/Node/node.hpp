@@ -9,7 +9,7 @@
 template<int dim>
 class Node {
 private:
-    static int _id;
+    static int _id_counter;
 
 protected:
     Point<double, dim> _position;
@@ -17,6 +17,8 @@ protected:
     double _rho;
     std::array<double, dim> _u;
     const unsigned int _num_directions;
+    int _id;
+
 public:
     Node(const Point<double, dim>&, unsigned int num_directions);
 

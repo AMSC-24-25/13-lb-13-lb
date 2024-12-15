@@ -4,12 +4,15 @@
 #include "node.hpp"
 
 template<int dim>
-int Node<dim>::_id = 0;
+int Node<dim>::_id_counter = 0;
 
 template<int dim>
 Node<dim>::Node(const Point<double, dim>& position, unsigned int num_directions) 
     : _position{position}, _num_directions{num_directions}
 {
+    this->_id = _id_counter;
+    _id_counter++;
+
     this->_f.reserve(num_directions);
     this->_f_eq.reserve(num_directions);
     this->_f_next.reserve(num_directions);
@@ -24,8 +27,7 @@ inline Point<double, dim> Node<dim>::GetPosition() const
 
 template<int dim>
 inline int Node<dim>::GetId() const {
-    _id++;
-    return _id;
+    return this->_id;
 }
 
 //getter per distribuzioni
