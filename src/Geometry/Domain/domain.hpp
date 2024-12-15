@@ -29,6 +29,8 @@ public:
     void Partition(int);
     void Partition(const std::vector<int>&);
 
+    bool AddNode(const Node<dim>&);
+
     Subdomain<dim>&                 GetSubDomain(int) ;
     std::shared_ptr<Subdomain<dim>> GetSubDomainPtr(int) const;
 

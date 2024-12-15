@@ -92,7 +92,7 @@ void Domain<dim>::Partition(const std::vector<int>& indexes) {
     int index = 0;
     for(auto& n : this->_k_point_to_node) {
         int id = n.second->GetId();
-        assignments.insert({id, index});
+        assignments.insert(std::pair<int, int>(id, index));
         index = (index + 1) % partitions;
     }
 
@@ -117,6 +117,18 @@ void Domain<dim>::Partition(const std::vector<int>& indexes) {
     for(int i = 0;i < partitions;i++) {
         this->_subdomains[i] = Subdomain<dim>(internal[i], interfaces[i], indexes[i]);
     }
+}
+
+template <int dim>
+bool Domain<dim>::AddNode(const Node<dim>& node) {
+    Point<double, dim> coord = node.GetPosition();
+
+    if(this->_k_point_to_node.count(coord) != 0)
+        return false;
+
+    this->_k_point_to_node.insert(std::pair<Point<double, dim>, Node<dim>>(coord, node));
+
+    return true;
 }
 
 template <int dim>
