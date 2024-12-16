@@ -3,22 +3,40 @@
 namespace lattice_boltzmann_method {
 
     template<int dim>
-    void CollisionFunction<dim>::ApplyCollision(Node<dim>& node) {
-      //  auto innerNode = dynamic_cast<InnerNode<dim>*>(&node);
-        if (innerNode) {
-            double rho = innerNode->GetDensity();
-          //  auto& f = innerNode->_f;
-           // auto& f_eq = innerNode->_f_eq;
+    void CollisionFunction<dim>::ApplyCollision(InnerNode<dim>& node) {
+        ComputeEquilibrium(node);
+        ComputeFNext(node);
+    }
 
-            for (size_t i = 0; i < num_distributions_; ++i) {
-                double ci_u = innerNode->GetVelocity() * innerNode->GetDirection(i);
-
-                double equilibrium = weights_[i] * rho * (1.0 + (ci_u / c_s2) + (ci_u * ci_u) / (2 * c_s4) -
-                                                         (innerNode->GetVelocity().norm() * innerNode->GetVelocity().norm()) / (2 * c_s2));
-
-                f_eq[i] = equilibrium;
-                f[i] = (1 - 1 / tau_) * f[i] + 1 / tau_ * f_eq[i];
+    template<int dim>
+    void CollisionFunction<dim>::ComputeEquilibrium(InnerNode<dim>& node) {
+        for (size_t i = 0; i < num_distributions_; ++i) {
+            double ci_u = 0.0;
+            for (int d = 0; d < dim; ++d) {
+                ci_u += directions_[i][d] * node.GetVelocity()[d];
             }
+
+            double ci_u_squared = ci_u * ci_u;
+            double u_squared = 0.0;
+
+            for (int d = 0; d < dim; ++d) {
+                u_squared += node.GetVelocity()[d] * node.GetVelocity()[d];
+            }
+
+            node.SetEquilibriumDistribution(
+                i,
+                weights_[i] * node.GetDensity() * (1.0 + (3.0 * ci_u) + (4.5 * ci_u_squared) - (1.5 * u_squared))
+            );
+        }
+    }
+
+    template<int dim>
+    void CollisionFunction<dim>::ComputeFNext(InnerNode<dim>& node) {
+        for (size_t i = 0; i < num_distributions_; ++i) {
+            double f = node.GetF(i);
+            double f_eq = node.GetEquilibriumDistribution(i);
+
+            node.SetF(i, (1 - 1 / tau_) * f + (1 / tau_) * f_eq);
         }
     }
 }
