@@ -29,12 +29,12 @@ public:
     void Partition(int);
     void Partition(const std::vector<int>&);
 
-    bool AddNode(const Node<dim>&);
+    bool AddNode(const std::shared_ptr<Node<dim>>&, const Point<int, dim>&);
 
     Subdomain<dim>&                 GetSubDomain(int) ;
     std::shared_ptr<Subdomain<dim>> GetSubDomainPtr(int) const;
 
-    std::shared_ptr<Node<dim>> GetNodeFromCoordinates(const Point<int, dim>&) ;
+    std::shared_ptr<Node<dim>> GetNodeFromCoordinates(const Point<int, dim>&) const;
     std::vector<std::shared_ptr<Node<dim>>> GetNeighbours(const Point<int, dim>&) const;
 };
 

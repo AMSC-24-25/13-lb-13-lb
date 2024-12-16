@@ -120,13 +120,11 @@ void Domain<dim>::Partition(const std::vector<int>& indexes) {
 }
 
 template <int dim>
-bool Domain<dim>::AddNode(const Node<dim>& node) {
-    Point<double, dim> coord = node.GetPosition();
-
+bool Domain<dim>::AddNode(const std::shared_ptr<Node<dim>>& node, const Point<int, dim>& coord) {
     if(this->_k_point_to_node.count(coord) != 0)
         return false;
 
-    this->_k_point_to_node.insert(std::pair<Point<double, dim>, Node<dim>>(coord, node));
+    this->_k_point_to_node.insert(std::pair<Point<int, dim>, std::shared_ptr<Node<dim>>>(coord, node));
 
     return true;
 }
