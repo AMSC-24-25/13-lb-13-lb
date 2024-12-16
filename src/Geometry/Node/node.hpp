@@ -28,6 +28,20 @@ public:
     virtual void Collide() = 0;
     virtual void Propagate() = 0;
 
+    // abstract methods for physical properties
+    virtual void SetDistribution(int /*index*/, double /*distribution*/) = 0;
+    virtual double GetDistribution(int /*index*/) = 0;
+    virtual double GetEquilibriumDistribution(int /*index*/) = 0;
+    virtual void UpdateEquilibriumDistributions() = 0;
+    virtual std::vector<double> GetDistributions() = 0;
+    virtual std::vector<double> GetEquilibriumDistributions() = 0;
+    virtual double GetVelocity() = 0;
+    virtual double GetPressure() = 0;
+    virtual double GetDensity() = 0;
+    virtual void UpdateVelocity() = 0;
+    virtual void UpdatePressure() = 0;
+    virtual void UpdateDensity() = 0;
+
     virtual std::unique_ptr<Node<dim>> clone() const = 0;
 
     Point<double, dim> GetPosition() const;
