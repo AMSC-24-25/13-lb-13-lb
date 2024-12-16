@@ -142,13 +142,16 @@ inline std::shared_ptr<Subdomain<dim>> Domain<dim>::GetSubDomainPtr(int index) c
 }
 
 template<int dim>
-inline std::shared_ptr<Node<dim>> Domain<dim>::GetNodeFromCoordinates(const Point<int, dim>& point) {
-    return this->_k_point_to_node[point];
+inline std::shared_ptr<Node<dim>> Domain<dim>::GetNodeFromCoordinates(const Point<int, dim>& point) const {
+    return this->_k_point_to_node.at(point);
 }
 
 template<int dim>
 inline std::vector<std::shared_ptr<Node<dim>>> Domain<dim>::GetNeighbours(const Point<int, dim>& point) const {
-    return this->_k_neighbours_strategy->GetNeighbours(*this, point);
+    //return this->_k_neighbours_strategy->GetNeighbours(*this, point);
+    std::shared_ptr<Node<dim>> n = GetNodeFromCoordinates(point);
+
+    return n->GetNeighbours();
 }
 
 #endif

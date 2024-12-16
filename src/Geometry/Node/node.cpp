@@ -25,6 +25,18 @@ inline Point<double, dim> Node<dim>::GetPosition() const
     return this->_position;
 }
 
+template <int dim>
+std::vector<std::shared_ptr<Node<dim>>> Node<dim>::GetNeighbours()
+{
+    return this->_neighbours;
+}
+
+template <int dim>
+void Node<dim>::SetNeighbours(std::vector<std::shared_ptr<Node<dim>>> neighbours)
+{
+    this->_neighbours = neighbours;
+}
+
 template<int dim>
 inline int Node<dim>::GetId() const {
     return this->_id;

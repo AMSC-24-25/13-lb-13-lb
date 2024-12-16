@@ -19,6 +19,9 @@ protected:
     const unsigned int _num_directions;
     int _id;
 
+    // temporary solution to neighbours problem
+    std::vector<std::shared_ptr<Node<dim>>> _neighbours;
+
 public:
     Node(const Point<double, dim>&, unsigned int num_directions);
 
@@ -28,6 +31,9 @@ public:
     virtual std::unique_ptr<Node<dim>> clone() const = 0;
 
     Point<double, dim> GetPosition() const;
+
+    std::vector<std::shared_ptr<Node<dim>>> GetNeighbours();
+    void SetNeighbours(std::vector<std::shared_ptr<Node<dim>>>);
 
     int GetId() const;  // need enumeration for hashmaps in partitioning
 };
