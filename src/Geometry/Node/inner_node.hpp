@@ -2,6 +2,7 @@
 #define INNER_NODE_HPP
 
 #include "../Geometry/Node/node.hpp"
+#include "../Geometry/Point/point.hpp"
 
 namespace lattice_boltzmann_method {
 
@@ -9,40 +10,38 @@ namespace lattice_boltzmann_method {
     class InnerNode : public Node<dim> {
     public:
         explicit InnerNode(const Point<double, dim>& position, int num_distributions)
-            : Node<dim>(position), _f(num_distributions, 0.0), _f_eq(num_distributions, 0.0) {}
+            : Node<dim>(position), _f(num_distributions, 0.0), _f_eq(num_distributions, 0.0), _velocity(Point<double, dim>{}), _density(0.0), _pressure(0.0) {}
 
         void Collide() override;
         void Propagate() override;
 
-        double GetDensity() const;  
-        const std::vector<double>& GetVelocity() const;
+        void UpdateDensity() override;
+        void UpdateVelocity() override;
+        void UpdatePressure() override;
 
-        void SetF(int index, double f_next) {  
+        const Point<double, dim>& GetVelocity() const override { return _velocity; }
+        double GetDensity() const override { return _density; }
+        double GetPressure() const override { return _pressure; }
+
+        void SetDistribution(int index, double value) override {
             if (index >= 0 && index < _f.size()) {
-                _f[index] = f_next;
+                _f[index] = value;
             }
         }
 
-        double GetF(int index) const {  
+        double GetDistribution(int index) const override {
             if (index >= 0 && index < _f.size()) {
                 return _f[index];
             }
             return 0.0;
         }
 
-        const std::vector<double>& GetF() const { return _f; }
-        const std::vector<double>& GetFEquilibrium() const { return _f_eq; }
-
-        void SetEquilibriumDistribution(int index, double value) { _f_eq[index] = value; }
-        double GetEquilibriumDistribution(int index) const { return _f_eq[index]; }
-
-        void UpdateDensity();
-        void UpdateVelocity();
-        void UpdatePressure();
-
     private:
-        std::vector<double> _f;    // Vettore delle distribuzioni attuali
-        std::vector<double> _f_eq; // Vettore delle distribuzioni di equilibrio
+        std::vector<double> _f;    
+        std::vector<double> _f_eq; 
+        Point<double, dim> _velocity; 
+        double _density;           
+        double _pressure;          
     };
 
 }

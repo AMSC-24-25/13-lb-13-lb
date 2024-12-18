@@ -1,59 +1,63 @@
 #include "inner_node.hpp"
+#include <cmath>
+
+#include "inner_node.hpp"
+#include "collision_function.hpp"
 
 namespace lattice_boltzmann_method {
 
     template <int dim>
     void InnerNode<dim>::Collide() {
-        // Implementazione della collisione
+        auto& collision_function = CollisionFunction<dim>::Instance(
+            Node<dim>::directions,
+            Node<dim>::weights,
+            Node<dim>::ReynoldsNumber,
+            Node<dim>::CharacteristicVelocity,
+            Node<dim>::CharacteristicLength
+        );
+        collision_function.ApplyCollision(*this);
     }
 
     template <int dim>
     void InnerNode<dim>::Propagate() {
-        // Implementazione della propagazione
-    }
-
-    template <int dim>
-    double InnerNode<dim>::GetDensity() const {
-        double rho = 0.0;
-        for (const auto& f_val : _f) {
-            rho += f_val;
-        }
-        return rho;
-    }
-
-    template <int dim>
-    const std::vector<double>& InnerNode<dim>::GetVelocity() const {
-        static std::vector<double> velocity(dim, 0.0);
-        double rho = GetDensity();
-
-        if (rho > 0) {
+        for (size_t i = 0; i < Node<dim>::directions.size(); ++i) {
+            auto destination_position = this->GetPosition();
             for (int d = 0; d < dim; ++d) {
-                velocity[d] = 0.0;
-                for (size_t i = 0; i < _f.size(); ++i) {
-                    velocity[d] += _f[i] * GetDirection(i)[d];
-                }
-                velocity[d] /= rho;
+                destination_position[d] += Node<dim>::directions[i][d];
             }
-        }
-        return velocity;
-    }
 
-    template <int dim>
-    void InnerNode<dim>::UpdateVelocity() {
-        const auto& velocity = GetVelocity();
-        for (int d = 0; d < dim; ++d) {
-            this->_velocity[d] = velocity[d];
+            InnerNode<dim>* neighbor = GetNeighborNode(destination_position);
+            if (neighbor) {
+                neighbor->SetDistribution(i, this->GetDistribution(i));
+            }
         }
     }
 
     template <int dim>
     void InnerNode<dim>::UpdateDensity() {
-        double rho = GetDensity();
-        this->_density = rho;
+        _density = 0.0;
+        for (const auto& f_val : _f) {
+            _density += f_val;
+        }
+    }
+
+    template <int dim>
+    void InnerNode<dim>::UpdateVelocity() {
+        _velocity = Point<double, dim>{};
+        for (size_t i = 0; i < _f.size(); ++i) {
+            for (int d = 0; d < dim; ++d) {
+                _velocity[d] += _f[i] * Node<dim>::directions[i][d];
+            }
+        }
+        for (int d = 0; d < dim; ++d) {
+            _velocity[d] /= _density;
+        }
     }
 
     template <int dim>
     void InnerNode<dim>::UpdatePressure() {
-        this->_pressure = GetDensity() * GetVelocity().size();
+        constexpr double sound_speed = 1.0 / std::sqrt(3.0) * Node<dim>::DeltaX / Node<dim>::DeltaT;
+        _pressure = _density * sound_speed * sound_speed;
     }
+
 }

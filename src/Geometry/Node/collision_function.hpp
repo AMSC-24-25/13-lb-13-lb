@@ -18,10 +18,7 @@ namespace lattice_boltzmann_method {
             return instance;
         }
 
-        void ApplyCollision(InnerNode<dim>& node);
-
-        void ComputeEquilibrium(InnerNode<dim>& node);
-        void ComputeFNext(InnerNode<dim>& node);
+        void ApplyCollision(InnerNode<dim>& node) const;
 
     private:
         CollisionFunction(const std::vector<std::vector<double>>& directions,
@@ -38,8 +35,8 @@ namespace lattice_boltzmann_method {
         CollisionFunction(const CollisionFunction&) = delete;
         CollisionFunction& operator=(const CollisionFunction&) = delete;
 
-        std::vector<std::vector<double>> directions_;
-        std::vector<double> weights_;
+        std::vector<std::vector<double>> directions_;  
+        std::vector<double> weights_;                 
         size_t num_distributions_;
         double tau_;
     };
