@@ -13,12 +13,12 @@ void Node<dim>::SetDirections(
 
 template<int dim>
 std::vector<Point<int, dim>> Node<dim>::GetDirections() {
-    return directions;
+    return directions_;
 }
 
 template<int dim>
 std::vector<double> Node<dim>::GetWeights() {
-    return weights;
+    return weights_;
 }
 
 template<int dim>

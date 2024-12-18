@@ -1,8 +1,8 @@
 #ifndef COLLISION_FUNCTION_HPP
 #define COLLISION_FUNCTION_HPP
 
-#include "../Geometry/Node/node.hpp"
-#include "../Geometry/Node/inner_node.hpp"
+#include "node.hpp"
+#include "inner_node.hpp"
 
 namespace lattice_boltzmann_method {
 

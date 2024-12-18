@@ -23,9 +23,11 @@ namespace lattice_boltzmann_method {
         for (size_t i = 0; i < Node<dim>::directions.size(); ++i) {
             auto destination_position = this->GetPosition();
             for (int d = 0; d < dim; ++d) {
+                // TODO non usare ::directions ma GetDirections
                 destination_position[d] += Node<dim>::directions[i][d];
             }
 
+            // TODO: usare i vicini e non GetNeighbourNode
             InnerNode<dim>* neighbor = GetNeighborNode(destination_position);
             if (neighbor) {
                 neighbor->SetDistribution(i, this->GetDistribution(i));
@@ -46,6 +48,7 @@ namespace lattice_boltzmann_method {
         _velocity = Point<double, dim>{};
         for (size_t i = 0; i < _f.size(); ++i) {
             for (int d = 0; d < dim; ++d) {
+                // TODO non usare ::directions ma GetDirections
                 _velocity[d] += _f[i] * Node<dim>::directions[i][d];
             }
         }

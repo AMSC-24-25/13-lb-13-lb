@@ -1,5 +1,5 @@
-#ifndef LBM_Node
-#define LBM_Node
+#ifndef NODE_HPP
+#define NODE_HPP
 
 #include "../Point/point.hpp"
 
@@ -23,8 +23,8 @@ protected:
     // temporary solution to neighbours problem
     std::vector<std::shared_ptr<Node<dim>>> _neighbours;
 
-    static std::vector<Point<int,dim>> directions_;
-    static std::vector<double>         weights_;
+    static inline std::vector<Point<int,dim>> directions_;
+    static inline std::vector<double>         weights_;
 public:
     static void                         SetDirections(
                                                 std::vector<Point<int, dim>> &directions, 
@@ -66,4 +66,4 @@ public:
 
 #include "node.cpp"
 
-#endif
+#endif // NODE_HPP
