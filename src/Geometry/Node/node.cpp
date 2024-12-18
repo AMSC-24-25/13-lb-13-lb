@@ -4,6 +4,34 @@
 #include "node.hpp"
 
 template<int dim>
+void Node<dim>::SetDirections(
+                                            std::vector<Point<int, dim>> &directions, 
+                                            std::vector<double> &weights) {
+    directions_ = directions;
+    weights_ = weights;
+                                            }
+
+template<int dim>
+std::vector<Point<int, dim>> Node<dim>::GetDirections() {
+    return directions;
+}
+
+template<int dim>
+std::vector<double> Node<dim>::GetWeights() {
+    return weights;
+}
+
+template<int dim>
+Point<int, dim> Node<dim>::GetDirection(int i) {
+    return directions_[i];
+}
+
+template<int dim>
+double Node<dim>::GetWeight(int i) {
+    return weights_[i];
+}
+
+template<int dim>
 int Node<dim>::_id_counter = 0;
 
 template<int dim>

@@ -5,6 +5,7 @@
 
 #include <memory>
 #include <array>
+#include <vector>
 
 template<int dim>
 class Node {
@@ -22,7 +23,18 @@ protected:
     // temporary solution to neighbours problem
     std::vector<std::shared_ptr<Node<dim>>> _neighbours;
 
+    static std::vector<Point<int,dim>> directions_;
+    static std::vector<double>         weights_;
 public:
+    static void                         SetDirections(
+                                                std::vector<Point<int, dim>> &directions, 
+                                                std::vector<double> &weights);
+    static std::vector<Point<int, dim>> GetDirections();
+    static std::vector<double>          GetWeights();
+
+    static Point<int, dim>              GetDirection(int i);
+    static double                       GetWeight(int i);
+
     Node(const Point<double, dim>&, unsigned int num_directions);
 
     virtual void Collide() = 0;

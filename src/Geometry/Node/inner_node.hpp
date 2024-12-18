@@ -1,8 +1,8 @@
 #ifndef INNER_NODE_HPP
 #define INNER_NODE_HPP
 
-#include "../Geometry/Node/node.hpp"
-#include "../Geometry/Point/point.hpp"
+#include "../Point/point.hpp"
+#include "node.hpp"
 
 namespace lattice_boltzmann_method {
 
@@ -46,4 +46,4 @@ namespace lattice_boltzmann_method {
 
 }
 
-#endif
+#endif // INNER_NODE_HPP
