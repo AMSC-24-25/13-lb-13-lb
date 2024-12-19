@@ -33,6 +33,7 @@ set(SOURCES
 		${CMAKE_CURRENT_LIST_DIR}/../src/Geometry/Node/node.cpp
 		${CMAKE_CURRENT_LIST_DIR}/../src/Geometry/Node/boundary_node.cpp
 		${CMAKE_CURRENT_LIST_DIR}/../src/Geometry/Node/inner_node.cpp
+		${CMAKE_CURRENT_LIST_DIR}/../src/Geometry/Node/bounce_back_node.cpp
 
     # History
 	${CMAKE_CURRENT_LIST_DIR}/../src/History/history.cpp
@@ -66,6 +67,7 @@ set(HEADERS
 		${CMAKE_CURRENT_LIST_DIR}/../src/Geometry/Node/node.hpp
 		${CMAKE_CURRENT_LIST_DIR}/../src/Geometry/Node/boundary_node.hpp
 		${CMAKE_CURRENT_LIST_DIR}/../src/Geometry/Node/inner_node.hpp
+		${CMAKE_CURRENT_LIST_DIR}/../src/Geometry/Node/bounce_back_node.hpp
 		# Point
 		${CMAKE_CURRENT_LIST_DIR}/../src/Geometry/Point/point.hpp
 

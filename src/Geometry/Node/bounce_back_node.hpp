@@ -14,7 +14,7 @@ public:
 
     void SetDistribution(int index, double distribution) override;
 
-    void BoundaryFunction();
+    void BoundaryFunction() override;
 
     void Collide() override;
     void Propagate() override;

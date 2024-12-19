@@ -1,3 +1,6 @@
+#ifndef BOUNCE_BACK_NODE_CPP
+#define BOUNCE_BACK_NODE_CPP
+
 #include "bounce_back_node.hpp"
 
 template<int dim>
@@ -64,3 +67,5 @@ double BounceBackNode<dim>::ComputeDotProduct(const Point<int, dim>& ci, const s
     }
     return result;
 }
+
+#endif // BOUNCE_BACK_NODE_CPP
