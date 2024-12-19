@@ -11,12 +11,14 @@ Table of Contents
 4.	Simulation Workflow
 ________________________________________
 1. Introduction
+
 The Lattice Boltzmann Method (LBM) is a numerical approach for simulating fluid dynamics, especially in systems where complex geometries and parallelization are required. Unlike traditional CFD methods that solve the Navier-Stokes equations for macroscopic quantities (velocity, pressure, etc.), LBM simulates the behavior of fictive particles on a discrete lattice grid. These particles undergo two key processes:
     •	Propagation: Particles move to neighboring lattice sites.
     •	Collision: Particles interact and relax towards an equilibrium distribution.
 LBM is particularly well-suited for parallelization and complex geometries, making it an ideal choice for fluid dynamics simulations like the lid-driven cavity problem.
 ________________________________________
 2. Code Structure and Key Components
+
 The codebase is designed to simulate the 2D lid-driven cavity problem using the Lattice Boltzmann Method (LBM). It is modular, flexible, and scalable, allowing for easy configuration of simulation parameters, grid size, dimensionality, and parallelization options. Below is a breakdown of the main components in the code structure:
 
 Core Modules:
