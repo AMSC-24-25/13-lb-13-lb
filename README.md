@@ -12,8 +12,8 @@ Table of Contents
 ________________________________________
 1. Introduction
 The Lattice Boltzmann Method (LBM) is a numerical approach for simulating fluid dynamics, especially in systems where complex geometries and parallelization are required. Unlike traditional CFD methods that solve the Navier-Stokes equations for macroscopic quantities (velocity, pressure, etc.), LBM simulates the behavior of fictive particles on a discrete lattice grid. These particles undergo two key processes:
-•	Propagation: Particles move to neighboring lattice sites.
-•	Collision: Particles interact and relax towards an equilibrium distribution.
+    •	Propagation: Particles move to neighboring lattice sites.
+    •	Collision: Particles interact and relax towards an equilibrium distribution.
 LBM is particularly well-suited for parallelization and complex geometries, making it an ideal choice for fluid dynamics simulations like the lid-driven cavity problem.
 ________________________________________
 2. Code Structure and Key Components
@@ -23,13 +23,13 @@ Core Modules:
 2.	NodeStep: Stores the state of the simulation at each time step, encapsulating the fluid properties such as velocity, density, and distribution functions for each node in the grid. NodeStep is implemented in a way that it can manage grids of varying dimensions (1D, 2D, or 3D) by using specialized subclasses like NodeStep1D, NodeStep2D, and NodeStep3D. These classes store simulation data in vector or matrix formats, depending on the dimensionality of the simulation.
 3.	LBM Solver: Implements the core Lattice Boltzmann algorithm, which involves the propagation and collision steps for updating fluid properties at each grid node. It manages the evolution of the velocity distribution functions and fluid quantities at each step.
 4.	Boundary Conditions: Responsible for enforcing the boundary conditions of the simulation. For the 2D lid-driven cavity problem:
-o	Top Lid: The velocity of the fluid at the top boundary is set to a constant value (moving lid).
-o	Other Walls: No-slip conditions are applied, meaning zero velocity is imposed on the left, right, and bottom walls.
+    o	Top Lid: The velocity of the fluid at the top boundary is set to a constant value (moving lid).
+    o	Other Walls: No-slip conditions are applied, meaning zero velocity is imposed on the left, right, and bottom walls.
 5.	Observers: These components collect data during the simulation and output it for analysis. The primary observer is the CSVWriter, which tracks the simulation data and writes it to a CSV file. Observers can be registered to NodeStepHandler to ensure that data is recorded at each step of the simulation.
 Key Classes:
 •	Point: Represents spatial points in the simulation domain. This class is generalized to manage 1D, 2D, or 3D spaces and stores the coordinates of grid cells. It plays a significant role in tracking the fluid properties at each location in the domain.
 •	NodeStep: This class abstracts the storage of simulation data at each time step. It contains the fluid properties for each node, including the velocity distribution functions and other macroscopic quantities (e.g., density, pressure). It provides methods for interacting with this data, including accessing and updating node states.
-o	NodeStep1D, NodeStep2D, NodeStep3D: These are specialized subclasses of NodeStep for handling 1D, 2D, and 3D grids. They store simulation data in different matrix or vector formats, depending on the dimensionality of the simulation.
+    o	NodeStep1D, NodeStep2D, NodeStep3D: These are specialized subclasses of NodeStep for handling 1D, 2D, and 3D grids. They store simulation data in different matrix or vector formats, depending on the dimensionality of the simulation.
 •	NodeStepHandler: This class manages the creation and filling of NodeStep objects during each simulation iteration. It coordinates the interaction between simulation steps and observers (like CSVWriter). It tracks iteration numbers, time, and boundary conditions, and can be configured to skip certain iterations for performance reasons.
 •	CSVWriter: An observer class that collects simulation data and writes it to CSV files for analysis. It listens for updates from the simulation and records the state of the system at each simulation step.
 •	SimulationManager: The central class that orchestrates the simulation. It initializes the simulation strategy, manages the execution of simulation steps, and coordinates with observers like CSVWriter to track the state of the system. It provides the Start() method that begins the simulation and runs it through all the steps.
