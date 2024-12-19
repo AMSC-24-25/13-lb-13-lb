@@ -23,7 +23,8 @@ namespace lattice_boltzmann_method
 
     template <int dim>
     void SerialStepSimulationStrategy<dim>::Setup() {
-        this->domain_->Partition({0});
+        const std::vector<int> subdomain_labels = {0};
+        this->domain_->Partition(subdomain_labels);
         subdomain_ = this->domain_->GetSubDomainPtr(0);
     }
 

@@ -45,7 +45,9 @@ namespace lattice_boltzmann_method
                                    double starting_time = 0.0,
                                    double time_step = 0.1) 
                     : domain_{domain}, current_time_{starting_time}, time_step_{time_step} {
-                node_callbacks_.push_back(node_callback);
+                if ( node_callback ) {
+                    node_callbacks_.push_back(node_callback);
+                }
             }
             StepSimulationStrategy(std::shared_ptr<Domain<dim>> domain, 
                                    std::vector<std::shared_ptr<NodeCallback<dim>>> node_callbacks,
@@ -55,7 +57,7 @@ namespace lattice_boltzmann_method
             {
                 node_callbacks_.reserve(node_callbacks.size());
                 for ( int i=0; i<node_callbacks.size(); i++ ) {
-                    if ( node_callbacks[i]) {
+                    if (node_callbacks[i]) {
                         node_callbacks_.push_back(std::move(node_callbacks[i]));
                     }
                 }
@@ -134,7 +136,7 @@ namespace lattice_boltzmann_method
             SerialStepSimulationStrategy(std::shared_ptr<Domain<dim>> domain, 
                                          std::shared_ptr<NodeCallback<dim>> node_callback,
                                          double starting_time = 0.0,
-                                         double time_step     = 0.1) 
+                                         double time_step     = 1.0) 
                 : StepSimulationStrategy<dim>{domain, node_callback, starting_time, time_step} {}
 
             void Initialize(std::shared_ptr<Domain<dim>> domain, 

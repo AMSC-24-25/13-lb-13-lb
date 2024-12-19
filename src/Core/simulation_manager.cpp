@@ -10,12 +10,13 @@ namespace lattice_boltzmann_method
         this->SetupDomain();
 
         if( step_strategy_ ) 
-            step_strategy_->SimulateNextStep();
+            step_strategy_->Setup();
+            step_strategy_->SimulateUntil(10);
     }
     
     template<int dim>
     void SimulationManager<dim>::LoadDomain() {
-
+        this->_domain = std::make_shared<Domain<2>>();
     }
 
     template<int dim>
@@ -84,7 +85,7 @@ namespace lattice_boltzmann_method
         }
 
         // initializing evolution strategy
-        this->step_strategy_ = std::make_shared<OpenMPStepSimulationStrategy<2>>(_domain, nullptr, 0.0, 0.1, 8);
+        this->step_strategy_ = std::make_shared<SerialStepSimulationStrategy<2>>(_domain, nullptr, 0.0, 1.0);
     }
 
     template <int dim>
@@ -106,4 +107,4 @@ namespace lattice_boltzmann_method
     }
 
 }
-#endif
+#endif // SIMULATION_MANAGER_CPP

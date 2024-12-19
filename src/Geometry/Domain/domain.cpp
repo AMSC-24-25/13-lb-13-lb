@@ -106,10 +106,12 @@ void Domain<dim>::Partition(const std::vector<int>& indexes) {
         auto neighbours = this->GetNeighbours(n.first);
 
         for(auto& k : neighbours) {
-            int k_index = assignments[k->GetId()];
+            if ( k != nullptr ) {
+                int k_index = assignments[k->GetId()];
 
-            if(k_index != index)
-                interfaces[k_index][index].push_back(n.second);
+                if(k_index != index)
+                    interfaces[k_index][index].push_back(n.second);
+            }
         }
     }
 
