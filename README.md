@@ -1,7 +1,5 @@
 # Lattice Boltzmann Method HandsOn
 
-Lattice Boltzmann Method (LBM) Simulation for 2D Lid-Driven Cavity Problem
-
 
 This project implements a Lattice Boltzmann Method (LBM) simulation to solve the 2D lid-driven cavity problem at a Reynolds number of 100. The lid-driven cavity problem is a widely used benchmark for computational fluid dynamics (CFD) simulations, where a fluid is confined within a square cavity. The top lid of the cavity moves with a constant velocity, while the other three walls remain stationary.
 The LBM method offers advantages over traditional Navier-Stokes solvers, including simpler algorithms, better scalability for parallelization, and flexibility in handling complex geometries. In this project, the results obtained from the simulation are compared with reference data from the paper "High-Resolution for Incompressible Flow Using the Navier-Stokes Equations and a Multigrid Method" by U. Ghia, K. N. Ghia, and C. T. Shin (Journal of Computational Physics, 1982).
