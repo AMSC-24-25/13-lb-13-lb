@@ -9,6 +9,7 @@ namespace lattice_boltzmann_method
         this->LoadDomain();
         this->SetupDomain();
 
+        step_strategy_->AddNodeCallback(nullptr);
         if( step_strategy_ ) 
             step_strategy_->Setup();
             step_strategy_->SimulateUntil(10);
@@ -85,7 +86,8 @@ namespace lattice_boltzmann_method
         }
 
         // initializing evolution strategy
-        this->step_strategy_ = std::make_shared<SerialStepSimulationStrategy<2>>(_domain, nullptr, 0.0, 1.0);
+        //this->step_strategy_ = std::make_shared<SerialStepSimulationStrategy<2>>(_domain, nullptr, 0.0, 1.0);
+        this->step_strategy_->Initialize(_domain, {}, 0.0, 1.0);
     }
 
     template <int dim>

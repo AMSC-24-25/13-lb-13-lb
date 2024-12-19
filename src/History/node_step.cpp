@@ -42,7 +42,7 @@ namespace lattice_boltzmann_method
 
     template <int dim, typename DataType>
     void NodeStepHandler<dim,DataType>::HandleNode(const Node<dim> &node) {
-        if ( num_steps_left_ == 0 ) {
+        if ( num_steps_left_ == num_steps_to_skip_ ) {
             this->current_node_step_->SaveNode(node);
         }
     }

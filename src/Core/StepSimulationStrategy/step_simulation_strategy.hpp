@@ -40,6 +40,9 @@ namespace lattice_boltzmann_method
         public:
             StepSimulationStrategy() {};
 
+            StepSimulationStrategy(StepSimulationStrategy& other)  = default;
+            StepSimulationStrategy(StepSimulationStrategy&& other) = default;
+
             StepSimulationStrategy(std::shared_ptr<Domain<dim>> domain, 
                                    std::shared_ptr<NodeCallback<dim>> node_callback=nullptr,
                                    double starting_time = 0.0,
@@ -66,9 +69,18 @@ namespace lattice_boltzmann_method
 
             void AddNodeCallback(std::shared_ptr<NodeCallback<dim>> node_callback)  { 
                 if ( node_callback ) {
-                    node_callbacks_.push_back(std::move(node_callback));
+                    node_callbacks_.push_back(node_callback);
                 }
             }
+
+            inline const std::vector<std::shared_ptr<NodeCallback<dim>>>& GetNodeCallbacks()  { 
+                return node_callbacks_;
+            }
+
+            virtual void Initialize(std::shared_ptr<Domain<dim>> domain, 
+                                    std::vector<std::shared_ptr<NodeCallback<dim>>> node_callbacks,
+                                    double starting_time = 0.0,
+                                    double time_step = 0.1);
 
             /*
                 @brief setups the objects needed for the simulation.
@@ -91,7 +103,14 @@ namespace lattice_boltzmann_method
             std::vector<std::shared_ptr<NodeCallback<dim>>> node_callbacks_;
             std::shared_ptr<Domain<dim>> domain_;
             double current_time_;
+            int iteration_number_=0;
             double time_step_;
+
+            inline void NotifyNewIteration(int iteration_number) {
+                for ( std::shared_ptr<NodeCallback<dim>> &callback : node_callbacks_ ) {
+                    callback->NotifyNewIteration(iteration_number);
+                }
+            }
 
             inline void RunConstCallbacks(const Node<dim> &node) {
                 for ( std::shared_ptr<NodeCallback<dim>> &callback : node_callbacks_ ) {
@@ -110,7 +129,11 @@ namespace lattice_boltzmann_method
                                      double starting_time = 0.0,
                                      double time_step = 0.1) {
                 domain_         = domain;
-                node_callbacks_ = node_callbacks;
+                for ( auto& callback : node_callbacks ) {
+                    if ( callback  ) {
+                        node_callbacks_.push_back(callback);
+                    }
+                }
                 current_time_   = starting_time;
                 time_step_      = time_step;
             }
@@ -138,11 +161,6 @@ namespace lattice_boltzmann_method
                                          double starting_time = 0.0,
                                          double time_step     = 1.0) 
                 : StepSimulationStrategy<dim>{domain, node_callback, starting_time, time_step} {}
-
-            void Initialize(std::shared_ptr<Domain<dim>> domain, 
-                            std::vector<std::shared_ptr<NodeCallback<dim>>> node_callbacks,
-                            double starting_time = 0.0,
-                            double time_step = 0.1);
 
             virtual void Setup() override;
             virtual void SimulateNextStep() override;

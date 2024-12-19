@@ -5,20 +5,17 @@
 
 namespace lattice_boltzmann_method 
 {
+    template <int dim>
+    void StepSimulationStrategy<dim>::Initialize(std::shared_ptr<Domain<dim>> domain, std::vector<std::shared_ptr<NodeCallback<dim>>> node_callbacks, double starting_time, double time_step)
+    {
+        this->Initialize_(domain, node_callbacks, starting_time, time_step);
+    }
 
     template<int dim>
     void StepSimulationStrategy<dim>::SimulateUntil(double time) {
         while ( current_time_ < time ) {
             this->SimulateNextStep();
         }
-    }
-
-    template<int dim>
-    void SerialStepSimulationStrategy<dim>::Initialize(std::shared_ptr<Domain<dim>> domain, 
-                                        std::vector<std::shared_ptr<NodeCallback<dim>>> node_callbacks,
-                                        double starting_time,
-                                        double time_step) {
-        this->Initialize_(domain, node_callbacks, starting_time, time_step);
     }
 
     template <int dim>
@@ -30,6 +27,7 @@ namespace lattice_boltzmann_method
 
     template <int dim>
     void SerialStepSimulationStrategy<dim>::SimulateNextStep() {
+        this->NotifyNewIteration(this->iteration_number_);
         for ( std::shared_ptr<Node<dim>> &nodePtr : *subdomain_ ) {
             nodePtr->Collide();
         }
@@ -39,6 +37,7 @@ namespace lattice_boltzmann_method
         }
 
         this->current_time_ += this->time_step_;
+        this->iteration_number_++;
     }
 }
 
