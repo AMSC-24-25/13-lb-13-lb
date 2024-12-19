@@ -20,6 +20,7 @@ public:
     Point() {}
     Point(std::initializer_list<T>);
     Point(const std::vector<T>&);
+    Point(const std::array<T, dim>&);
     Point(const Point<T, dim>&, const std::array<T, dim>&);     // possible hashmap, but there would be an underlying array of zeros anyway
 
     T GetCoordinate(int) const;
@@ -27,6 +28,8 @@ public:
     size_t GetHash() const;
 
     bool operator==(const Point<T, dim>&) const;
+    T operator[](const int) const;
+    Point<T, dim> operator*(double) const;
 };
 
 #include "point.cpp"

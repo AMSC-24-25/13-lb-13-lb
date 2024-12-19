@@ -1,3 +1,6 @@
+#ifndef COLLISION_FUNCTION_CPP
+#define COLLISION_FUNCTION_CPP
+
 #include "collision_function.hpp"
 
 namespace lattice_boltzmann_method {
@@ -8,8 +11,8 @@ namespace lattice_boltzmann_method {
         node.UpdateVelocity();
         node.UpdatePressure();
 
-        auto& f = node.GetF();
-        auto& f_eq = node.GetFEquilibrium();
+        std::vector<double> f = node.GetDistributions();
+        std::vector<double> f_eq = node.GetEquilibriumDistributions();
 
         for (size_t i = 0; i < num_distributions_; ++i) {
             double ci_u = 0.0;
@@ -27,6 +30,6 @@ namespace lattice_boltzmann_method {
             f[i] = (1 - 1 / tau_) * f[i] + (1 / tau_) * f_eq[i];
         }
     }
-
 }
 
+#endif

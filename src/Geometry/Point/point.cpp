@@ -27,6 +27,16 @@ Point<T, dim>::Point(const std::vector<T>& v) {
     }
 }
 
+template <typename T, int dim>
+Point<T, dim>::Point(const std::array<T, dim> & v) {
+    for(int i = 0;i < dim;i++) {
+        this->_coordinates[i] = v[i];
+        
+        this->_hash ^= std::hash<T>()(v[i]) + 0x9e3779b9 + (this->_hash << 6) + (this->_hash >> 2);
+        i++;
+    }
+}
+
 template<typename T, int dim>
 Point<T, dim>::Point(const Point<T, dim>& point, const std::array<T, dim>& variations) {
     for(int i = 0;i < dim;i++) {
@@ -54,6 +64,23 @@ bool Point<T, dim>::operator==(const Point<T, dim>& a) const {
     }
 
     return true;
+}
+
+template <typename T, int dim>
+T Point<T, dim>::operator[](const int index) const
+{
+    return this->GetCoordinate(index);
+}
+
+template <typename T, int dim>
+Point<T, dim> Point<T, dim>::operator*(double val) const
+{
+    std::array<T, dim> arr;
+
+    for(int i = 0;i < dim;i++)
+        arr[i] = this->_coordinates[i] * val;
+    
+    return Point<T, dim>(arr);
 }
 
 template<typename T, int dim>

@@ -35,8 +35,8 @@ template<int dim>
 int Node<dim>::_id_counter = 0;
 
 template<int dim>
-Node<dim>::Node(const Point<double, dim>& position, unsigned int num_directions) 
-    : _position{position}, _num_directions{num_directions}
+Node<dim>::Node(const Point<double, dim>& position, unsigned int num_directions, Point<double, dim> initial_velocity, double rho)
+    : _position{position}, _num_directions{num_directions}, _rho{rho}, _u{initial_velocity}
 {
     this->_id = _id_counter;
     _id_counter++;
@@ -71,5 +71,56 @@ inline int Node<dim>::GetId() const {
 }
 
 //getter per distribuzioni
+template<int dim>
+inline double Node<dim>::GetDistribution(int index) const {
+    return this->_f[index];
+}
+
+template<int dim>
+inline double Node<dim>::GetEquilibriumDistribution(int index) {
+    return this->_f_eq[index];
+}
+
+template<int dim>
+inline std::vector<double> Node<dim>::GetDistributions() {
+    return this->_f;
+}
+
+template<int dim>
+inline std::vector<double> Node<dim>::GetEquilibriumDistributions() {
+    return this->_f_eq;
+}
+
+template<int dim>
+inline Point<double, dim> Node<dim>::GetVelocity() const {
+    return Point<double, dim>(this->_u);
+}
+
+template<int dim>
+inline double Node<dim>::GetDensity() const {
+    return this->_rho;
+}
+
+template<int dim>
+inline double Node<dim>::GetPressure() const {
+    return 0.0;
+}
+
+template<int dim>
+inline void Node<dim>::UpdateVelocity() {
+}
+
+template<int dim>
+inline void Node<dim>::UpdatePressure() {
+}
+
+template<int dim>
+inline void Node<dim>::UpdateDensity() {
+}
+
+template<int dim>
+void Node<dim>::UpdateEquilibriumDistributions() {
+}
+
 
 #endif

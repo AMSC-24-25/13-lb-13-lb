@@ -10,8 +10,8 @@ template<int dim>
 void BounceBackNode<dim>::Propagate(){}
 
 template<int dim>
-double BounceBackNode<dim>::GetVelocity(){
-    return this->_boundary_velocity;
+Point<double, dim> BounceBackNode<dim>::GetVelocity() const {
+    return Point<double, dim>(this->_boundary_velocity);
 }
 
 template<int dim>

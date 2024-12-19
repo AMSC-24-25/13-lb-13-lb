@@ -9,6 +9,10 @@
 #include "../History/history.hpp"
 #include "../History/Parser/history_parser.hpp"
 
+#include "../Geometry/Node/node.hpp"
+#include "../Geometry/Node/inner_node.hpp"
+#include "../Geometry/Node/bounce_back_node.hpp"
+
 namespace lattice_boltzmann_method
 {
 
@@ -63,6 +67,9 @@ namespace lattice_boltzmann_method
         protected:
             std::shared_ptr<StepSimulationStrategy<dim>> step_strategy_;
             std::shared_ptr<History> history_;
+
+            static constexpr int _k_domain_length = 1000;  // to be read from file
+            std::shared_ptr<Domain<2>> _domain;    // don't know if this has to be here, just putting for later
 
             virtual void Parse_(std::shared_ptr<StepSimulationStrategyParser<dim>> simulation_strategy_parser,
                               std::shared_ptr<HistoryParser> history_parser,

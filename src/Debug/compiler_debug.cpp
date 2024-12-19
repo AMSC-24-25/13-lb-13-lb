@@ -13,9 +13,9 @@ template class Subdomain<2>;
 template class Subdomain<3>;
 
 // simulation_manager.hpp
-template class SimulationManager<1>;
+//template class SimulationManager<1>;
 template class SimulationManager<2>;
-template class SimulationManager<3>;
+//template class SimulationManager<3>;
 
 // step_simulation_strategy.hpp
 template class SerialStepSimulationStrategy<1>;

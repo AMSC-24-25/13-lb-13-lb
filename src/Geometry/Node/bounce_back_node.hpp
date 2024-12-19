@@ -9,8 +9,8 @@
 template<int dim>
 class BounceBackNode : public BoundaryNode<dim> {
 public:
-    explicit BounceBackNode(const Point<double, dim>& position, unsigned int num_directions)
-        : BoundaryNode<dim>(position, num_directions) {}
+    explicit BounceBackNode(const Point<double, dim>&position, unsigned int num_directions, Point<double, dim> initial_velocity, double rho)
+        : BoundaryNode<dim>(position, num_directions, initial_velocity, rho) {}
 
     void SetDistribution(int index, double distribution) override;
 
@@ -19,7 +19,7 @@ public:
     void Collide() override;
     void Propagate() override;
 
-    double GetVelocity() override;
+    Point<double, dim> GetVelocity() const override;
     void UpdateVelocity() override;
 
     ~BounceBackNode() = default;
@@ -30,6 +30,8 @@ private:
 
     static double ComputeDotProduct(const Point<int, dim>& ci, const std::array<double, dim>& uw);
 };
+
+#include "bounce_back_node.cpp"
 
 #endif // BOUNCE_BACK_NODE_HPP
 

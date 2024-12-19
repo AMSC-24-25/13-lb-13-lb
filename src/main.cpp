@@ -47,6 +47,6 @@ int main(int argc, char *argv[]) {
                                                                          serial_step_simulation_strategy,
                                                                          csv_writer);
     // ==================== Starting the simulation =======================
-    //simulation_manager.Start();
+    simulation_manager.Start();
     return 0;
 }
