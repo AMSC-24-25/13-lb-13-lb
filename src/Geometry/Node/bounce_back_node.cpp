@@ -14,7 +14,7 @@ void BounceBackNode<dim>::Propagate(){}
 
 template<int dim>
 Point<double, dim> BounceBackNode<dim>::GetVelocity() const {
-    return Point<double, dim>(this->_boundary_velocity);
+    return this->_u;
 }
 
 template<int dim>
@@ -31,7 +31,7 @@ void BounceBackNode<dim>::SetDistribution(int index, double distribution) {
 
     constexpr double cs_squared = GetCsSquared();
 
-    const auto& uw = this->_boundary_velocity;
+    const auto& uw = this->_u;
     const auto& ci = direction_vectors[index];
     double wi = weights[index];
 
@@ -60,10 +60,10 @@ auto BounceBackNode<dim>::GetLBMModelData(int num_directions) {
 }
 
 template<int dim>
-double BounceBackNode<dim>::ComputeDotProduct(const Point<int, dim>& ci, const std::array<double, dim>& uw) {
+double BounceBackNode<dim>::ComputeDotProduct(const Point<int, dim>& ci, const Point<double, 2>& uw) {
     double result = 0.0;
     for (int d = 0; d < dim; ++d) {
-        result += ci[d] * uw[d];
+        result += ci[d] * uw.GetCoordinate(d);
     }
     return result;
 }

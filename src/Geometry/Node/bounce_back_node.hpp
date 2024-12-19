@@ -28,7 +28,7 @@ private:
     static auto GetLBMModelData(int num_directions);
     static constexpr double GetCsSquared() { return 1.0 / 3.0; } // Solo per D2Q9, necessaria modifica per più modelli
 
-    static double ComputeDotProduct(const Point<int, dim>& ci, const std::array<double, dim>& uw);
+    static double ComputeDotProduct(const Point<int, dim>& ci,const Point<double, 2>& uw);
 };
 
 #include "bounce_back_node.cpp"

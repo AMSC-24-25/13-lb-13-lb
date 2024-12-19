@@ -7,11 +7,11 @@ template<int dim>
 class BoundaryNode : public Node<dim> {
 
     protected:
-    std::array<double, dim> _boundary_velocity;
+    //std::array<double, dim> _boundary_velocity;
 
     public:
             explicit BoundaryNode(const Point<double, dim>&position, unsigned int num_directions, Point<double, dim> initial_velocity, double rho)
-        : Node<dim>(position, num_directions, initial_velocity, rho), _boundary_velocity{0.0} {} 
+        : Node<dim>(position, num_directions, initial_velocity, rho)/*, _boundary_velocity{0.0}*/ {} 
         //nel caso in cui abbia una velocità usare UpdateVelocity(sto valutando se modificare permettendo di settarla nel costruttore)
     
         virtual void BoundaryFunction() = 0;
