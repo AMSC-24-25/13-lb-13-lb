@@ -7,31 +7,32 @@ classDiagram
     %% the Domain and the LBM classes. It then handles the evolution of the simulation
     %% and saves the data inside the History class
     class SimulationManager {
-        init() void
-        start() void
+        LoadDomain() void
+        SetupDomain() void
+        Start() void
     }
 
 
     %% Contains an iteration of the algorithm. Calling many times the method LBM::next() makes the system evolve.
     %% Can be implemented in various way, depending on the optimization (serial, CUDA, OpenMP, MPI, ...)
-    class LBM {
+    class StepSimulationStrategy {
         << abstract >>
-        computeStep() void
+        SimulateStep() void
+        SimulateNextStep() void
     }
 
     %% Whoever is interested in being notified by the LBM when a new step is computer
     %% it has to inherit from this interface
     class IStepObserver {
         << interface >>
-        addStep(Step newStep) void
+        AddStep(Step newStep) void
     }
 
     %% A container class. Keep track of the Nodes and (maybe) other details of the problem,
     %% such as the speed of sound, the viscosity and the Reynolds number.
     %% This class represents the lattice as a grid of points
     class Domain {  
-        + double speedOfSound
-        + parseFromFile(std::string path) void
+        + ParseFromFile(std::string path) void
     }
 
     %% A generic point in the grid. Can be either an InnerNode or a BoundaryNode
