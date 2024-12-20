@@ -12,7 +12,6 @@ class BoundaryNode : public Node<dim> {
     public:
             explicit BoundaryNode(const Point<double, dim>&position, unsigned int num_directions, Point<double, dim> initial_velocity, double rho)
         : Node<dim>(position, num_directions, initial_velocity, rho)/*, _boundary_velocity{0.0}*/ {} 
-        //nel caso in cui abbia una velocità usare UpdateVelocity(sto valutando se modificare permettendo di settarla nel costruttore)
     
         virtual void BoundaryFunction() = 0;
 
@@ -24,7 +23,7 @@ class BoundaryNode : public Node<dim> {
         virtual Point<double, dim> GetVelocity() const override = 0;
         virtual void UpdateVelocity() override = 0;
 
-        virtual ~BoundaryNode() = default; //non dovrebbe servire
+        virtual ~BoundaryNode() = default;
 };
 
 #include "boundary_node.cpp"

@@ -18,7 +18,7 @@ Point<double, dim> BounceBackNode<dim>::GetVelocity() const {
 }
 
 template<int dim>
-void BounceBackNode<dim>::UpdateVelocity(){} //serve parametro in caso
+void BounceBackNode<dim>::UpdateVelocity(){}
 
 template<int dim>
 void BounceBackNode<dim>::SetDistribution(int index, double distribution) {
