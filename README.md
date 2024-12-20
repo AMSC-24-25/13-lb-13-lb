@@ -1,9 +1,6 @@
 # Lattice Boltzmann Method HandsOn
 
 
-This project implements a Lattice Boltzmann Method (LBM) simulation to solve the 2D lid-driven cavity problem at a Reynolds number of 100. The lid-driven cavity problem is a widely used benchmark for computational fluid dynamics (CFD) simulations, where a fluid is confined within a square cavity. The top lid of the cavity moves with a constant velocity, while the other three walls remain stationary.
-The LBM method offers advantages over traditional Navier-Stokes solvers, including simpler algorithms, better scalability for parallelization, and flexibility in handling complex geometries. In this project, the results obtained from the simulation are compared with reference data from the paper "High-Resolution for Incompressible Flow Using the Navier-Stokes Equations and a Multigrid Method" by U. Ghia, K. N. Ghia, and C. T. Shin (Journal of Computational Physics, 1982).
-________________________________________
 Table of Contents
 
 1.	Introduction
@@ -13,10 +10,12 @@ Table of Contents
 ________________________________________
 1. Introduction
 
-The Lattice Boltzmann Method (LBM) is a numerical approach for simulating fluid dynamics, especially in systems where complex geometries and parallelization are required. Unlike traditional CFD methods that solve the Navier-Stokes equations for macroscopic quantities (velocity, pressure, etc.), LBM simulates the behavior of fictive particles on a discrete lattice grid. These particles undergo two key processes:
-    •	Propagation: Particles move to neighboring lattice sites.
-    •	Collision: Particles interact and relax towards an equilibrium distribution.
-LBM is particularly well-suited for parallelization and complex geometries, making it an ideal choice for fluid dynamics simulations like the lid-driven cavity problem.
+This project implements a Lattice Boltzmann Method (LBM) simulation to solve the 2D lid-driven cavity problem at a Raynolds number of 100. The Lattice Boltzmann Method (LBM) is a numerical approach for simulating fluid dynamics, especially in systems where complex geometries and parallelization are required. The lid-driven cavity problem is a widely used benchmark for computational fluid dynamics (CFD) simulations where a fluid is confined within a square cavity where its top lid moves with a constant velocity and the other three walls remain stationary. Unlike traditional CFD methods that solve the Navier-Stokes equations for macroscopic quantities (velocity, pressure, etc.), LBM simulates the behavior of fictive particles on a discrete lattice grid. These particles undergo two key processes:
+   
+•	Propagation: Particles move to neighboring lattice sites.
+•	Collision: Particles interact and relax towards an equilibrium distribution.
+
+In this project, the results obtained from the simulation are compared with reference data from the paper "High-Resolution for Incompressible Flow Using the Navier-Stokes Equations and a Multigrid Method" by U. Ghia, K. N. Ghia, and C. T. Shin (Journal of Computational Physics, 1982).
 ________________________________________
 2. Code Structure and Key Components
 
