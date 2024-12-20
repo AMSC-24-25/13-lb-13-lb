@@ -46,7 +46,9 @@ ________________________________________
 1. Parallelization
 
 This project supports parallel computing using either MPI (Message Passing Interface) or OpenMP for multi-threading.
+
 •	MPI for distributing the grid across multiple processes running on different nodes, with communication occurring at the boundaries of each sub-domain.
+
 •	OpenMP for multi-threading on shared-memory systems, where different threads operate on different sections of the grid in parallel.
 
 The parallelization is designed to improve the simulation's scalability and efficiency, especially for large grids or complex simulations.
