@@ -18,19 +18,6 @@ namespace lattice_boltzmann_method {
     void InnerNode<dim>::Propagate() {
         this->_f[0] = this->_f_next[0];
         for (size_t i = 1; i < Node<dim>::directions_.size(); ++i) {
-            /*
-            auto destination_position = this->GetPosition();
-            for (int d = 0; d < dim; ++d) {
-                // TODO non usare ::directions ma GetDirections
-                destination_position[d] += Node<dim>::directions_[i].GetCoordinate(d);
-            }
-
-            // TODO: usare i vicini e non GetNeighbourNode
-            InnerNode<dim>* neighbor = GetNeighborNode(destination_position);
-            if (neighbor) {
-                neighbor->SetDistribution(i, this->GetDistribution(i));
-            }
-            */
            this->_neighbours[i-1]->SetDistribution(i, this->_f_next[i]);
         }
     }
